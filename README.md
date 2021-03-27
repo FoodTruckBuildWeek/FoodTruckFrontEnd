@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 👀 Product Vision Document
 
-## Available Scripts
+### ☝️ Proposal
 
-In the project directory, you can run:
+**What problem does your app solve?**
+- If you are a customer, the app helps you find food trucks you might be interested in based on distance. If you are an owner, it allows customers to find your truck. In general, it allows buyers and sellers to find each other more efficiently.
 
-### `npm start`
+**Be as specific as possible; how does your app solve the problem?**
+- The app performs a search based on distance and departure times, so users and owners can always tell who is in close proximity to which truck.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**What is the mission statement?**
+- FoodTruck TrackR was designed to make finding and eating at a food truck fast, easy and fun. Quickly see all of our Operator partners' nearby food trucks that currently open, view their current real-time GPS location, know the scheduled arrival and departure times, view photos, read customer reviews and much more, all in our easy to use app. Try FoodTruck TrackR today, and enjoy the best food your city has to offer.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 💡 Features
 
-### `npm test`
+**What features are required for your minimum viable product?**
+- Login page
+- Diners: with username, email, password, can query for trucks and filter by distance, avg Customer Ratings, and cuisine type
+- Owners: with username, email, password, can CRUD trucks that they own
+- Create new user: username, email, password, select role
+- Trucks: menu properties: item name, item description, image, price, and customer rating, and location/departure time properties
+- Logout
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**What features may you wish to put in a future release?**
+- Owners can search all trucks.
+- Notification when food goes on sale
+- Customer review descriptions(not just number)
 
-### `npm run build`
+**What do the top 3 similar apps do for their users?**
+- Google search (“food near me”) allows search for restaurants 
+- GrubHub: directs you to food to be delivered 
+- Yelp: allows you to look at customer reviews of restaurants
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 🛠 Frameworks - Libraries
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**What 3rd party frameworks/libraries are you considering using?**
+- React
+- Redux
+- Axios
+- ReactDOM
+- React-router-dom
+- Yup
+- Bcryptjs
+- Cors
+- Express
+- Jsonwebtoken
+- Knex
+- Sqlite3
+- Cross-env
+- Jest
+- Nodemon
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 🎯 Target Audience
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Who is your target audience? Be specific.**
+- Hungry people and food lovers, along with people who love making food
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### 🔑 Prototype Key Feature(s)
 
-## Learn More
+**How long do you think it will take to implement these features?**
+- 1 week
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Do you anticipate working on stretch functionality after completion of a Minimal Viable Product?**
+- If time permits
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
