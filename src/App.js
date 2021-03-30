@@ -5,7 +5,10 @@ import NavBar from "./components/NavBar";
 import { Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import signUpForm from "./components/signUpForm";
-import NewUserForm from './components/NewUserForm';
+
+import CreateTruckForm from "./components/CreateTruckForm";
+import EditTruckForm from "./components/EditTruckForm";
+
 function App() {
   return (
     <div className="App">
@@ -16,6 +19,8 @@ function App() {
         </Route>
         <Route path="/SignUpNewUser" component={NewUserForm}></Route>
         <Route path="/SignIn" component={SignInForm}></Route>
+        <Route path="/CreateNewTruck" component={CreateTruckForm}></Route>
+        <Route path="/EditTruckForm" component={EditTruckForm}></Route>
       </Switch>
     </div>
   );
