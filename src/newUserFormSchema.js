@@ -2,13 +2,9 @@ import * as Yup from 'yup';
 
 
 const newUserFormSchema = Yup.object().shape({
-    first_name: Yup
+    username: Yup
     .string()
-    .required("First Name is Required"),
-
-    last_name: Yup
-    .string()
-    .required("Last Name is required"),
+    .required("Username is Required"),
 
     email: Yup
     .string()
