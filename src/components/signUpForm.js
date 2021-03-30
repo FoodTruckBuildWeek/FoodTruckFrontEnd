@@ -1,37 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
-const SignUpForm = (props) => {
-  const formSchema = {
-    username: "",
-    email: "",
-    password: "",
-    role: "",
-  };
-  const [formValues, setFormValues] = useState(formSchema);
 
-  const handleChange = (e) => {
-    console.log(e.target.name);
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value,
-    });
-    console.log(formValues);
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+const SignUpForm = (props) => {
+  const formSchema = yup.object().shape({
+    username: yup.string().min(3).max(15).required("Username Required"),
+    email: yup.string().email("Invalid Email").required("Required"),
+    password: yup.string().min(4).max(10).required(),
+    confirmPassword: yup.string().oneOf([yup.ref("password"), null]),
+    role: yup.string().lowercase("Option Required").required(),
+  });
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(formSchema),
+  });
+  console.log(errors);
+
+  //   const handleChange = (e) => {
+  //     console.log(e.target.name);
+  //     setFormValues({
+  //       ...formValues,
+  //       [e.target.name]: e.target.value,
+  //     });
+  //     console.log(formValues);
+  //   };
+  const submitForm = (e) => {
+    console.log(register);
+    e.preventDefault();
   };
 
   return (
     <>
       <h1>User Sign Up Form</h1>
-      <Form className="form">
+      <Form className="form" onSubmit={handleSubmit(submitForm)}>
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter Username"
             name="username"
-            inputRef={(node) => (formValues.email = node)}
-            onChange={handleChange}
+            ref={register}
           />
+          <Form.Text className="red-error-text">
+            {errors.username?.message}
+          </Form.Text>
         </Form.Group>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -39,9 +53,11 @@ const SignUpForm = (props) => {
             type="email"
             placeholder="Enter email"
             name="email"
-            inputRef={(node) => (formValues.email = node)}
-            onChange={handleChange}
+            ref={register}
           />
+          <Form.Text className="red-error-text">
+            {errors.email?.message}
+          </Form.Text>
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
@@ -50,23 +66,38 @@ const SignUpForm = (props) => {
             type="password"
             placeholder="Enter Password"
             name="password"
-            inputRef={(node) => (formValues.password = node)}
-            onChange={handleChange}
+            ref={register}
           />
+          <Form.Text className="red-error-text">
+            {errors.password?.message}
+          </Form.Text>
         </Form.Group>
-        <Form.Group controlId="exampleForm.ControlSelect2">
-          <Form.Label>Example multiple select</Form.Label>
+        <Form.Group controlId="formBasicCheckPassword">
+          <Form.Label>Confirm Password</Form.Label>
           <Form.Control
-            as="select"
-            multiple
-            name="role"
-            inputRef={(node) => (formValues.role = node)}
-            onChange={handleChange}
-          >
-            <option>Client</option>
-            <option>Vendor</option>
-          </Form.Control>
+            type="password"
+            placeholder="Enter Password"
+            name="confirmPassword"
+            ref={register}
+          />
+          <Form.Text className="red-error-text">
+            {" "}
+            {errors.confirmPassword && "Passwords Should Match!"}
+          </Form.Text>
         </Form.Group>
+
+        <Form.Group>
+          <Form.Label>Select User Type</Form.Label>
+          <Form.Control as="select" type="select" name="role" ref={register}>
+            <option>client</option>
+            <option>vendor</option>
+          </Form.Control>
+
+          <Form.Text className="red-error-text">
+            {errors.role?.message}
+          </Form.Text>
+        </Form.Group>
+
         <Button variant="primary" type="submit">
           Submit
         </Button>
