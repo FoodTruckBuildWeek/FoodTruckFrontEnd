@@ -34,6 +34,7 @@ const SignInForm = () => {
             placeholder="Enter Username"
             name="username"
             onChange={handleChange}
+            value={formValues.username}
           />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
@@ -43,6 +44,7 @@ const SignInForm = () => {
             placeholder="Enter Password"
             name="password"
             onChange={handleChange}
+            value={formValues.password}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
