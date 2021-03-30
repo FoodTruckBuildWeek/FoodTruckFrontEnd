@@ -15,7 +15,7 @@ const trucks = [
 
 const defaultCriteria = {
   cuisineType: "",
-  radius: 30,
+  radSize: 30,
 };
 
 const Diner = (props) => {
@@ -41,10 +41,12 @@ const Diner = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setSearchCriteria({
-      ...searchCriteria,
-      [name]: value,
-    });
+    if (name !== "radSize" || /\D/.test(value)) {
+      setSearchCriteria({
+        ...searchCriteria,
+        [name]: value,
+      });
+    }
   };
 
   const handleSearch = (e) => {
@@ -95,9 +97,9 @@ const Diner = (props) => {
           <Form.Control
             type="text"
             placeholder="Enter Distance"
-            name="radius"
+            name="radSize"
             onChange={handleChange}
-            value={searchCriteria.radius}
+            value={searchCriteria.radSize}
           />
         </Form.Group>
         <Button variant="success" type="submit">
