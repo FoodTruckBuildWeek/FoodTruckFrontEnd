@@ -1,0 +1,47 @@
+.truck_title {
+    background: #2ee1f5;
+    border: 2px solid rgba(33, 68, 72, 0.59);
+    width: 500px;
+    display: inline-block;
+    align-items: center;
+}
+
+.truck_form {
+    margin-left: 540px;
+    margin-right: 540px;
+    border: 2px solid rgba(33, 68, 72, 0.59);
+}
+
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.type_of_cuisine {
+    align-items: center;
+}
+
+.myButton {
+    display: inline-block;
+    align-items: center;
+    height: 70px;
+    width: 200px;
+    background: #2ee1f5;
+    border: 2px solid rgba(33, 68, 72, 0.59);
+    font-size: large;
+    margin-left: 50px;
+}
+
+label {
+    width: 200px;   
+    margin-left: 265px;
+    margin-right: 265px;
+    align-items: center;
+    padding: 10px;
+} 
+

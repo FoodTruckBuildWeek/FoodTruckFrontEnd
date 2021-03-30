@@ -23,7 +23,7 @@ const NavBar = () => {
           <LinkContainer to="/SignIn">
             <Nav.Link>Sign In</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/CreateNewTruck">
+          <LinkContainer to="/NewTruckForm">
             <Nav.Link>Create Truck</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/EditTruckForm">
