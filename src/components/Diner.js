@@ -93,7 +93,7 @@ const Diner = (props) => {
           />
         </Form.Group>
         <Form.Group controlId="formBasicUsername">
-          <Form.Label>Radius</Form.Label>
+          <Form.Label>Radius (km)</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter Distance"
