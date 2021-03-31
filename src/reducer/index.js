@@ -1,6 +1,4 @@
-
-import { ADD_NEW_USER } from "../actions";
-
+import { ADD_NEW_USER, SET_LOCATION } from "../actions";
 
 const initialState = {
   title: "Welcome to Redux land",
@@ -37,9 +35,9 @@ export const reducer = (state = initialState, action) => {
     case ADD_NEW_USER: {
       return state;
     }
-    default:
-      return state;
     case SET_LOCATION:
       return { ...state, location: action.payload };
+    default:
+      return state;
   }
 };
