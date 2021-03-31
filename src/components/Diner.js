@@ -4,12 +4,12 @@ import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
 import { setLocation } from "../actions";
-
+import { MAPS_API_KEY } from "../keys";
 import TruckCard from "../components/TruckCard";
 
 const cuisineTypes = ["french", "mexican", "chinese"];
 const distOptions = [10, 20, 30, 50, 100000];
-
+console.log(MAPS_API_KEY);
 const trucks = [
   {
     truck_id: 1,
@@ -128,6 +128,7 @@ const Diner = (props) => {
           })}
         </select>
         <br />
+
         <Button variant="success" type="submit">
           Search
         </Button>

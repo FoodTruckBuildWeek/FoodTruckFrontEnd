@@ -49,6 +49,9 @@
 .red-error-text {
   color: red;
 }
+.mapContainer {
+  width: 100%;
+}
 
 .FoodTruck {
   display: flex;
