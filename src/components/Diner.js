@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { useLocation } from "../hooks/useLocation";
-import { Button, Card, Form, Dropdown } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
+import { setLocation } from "../actions";
+
+import TruckCard from "../components/TruckCard";
 
 const cuisineTypes = ["french", "mexican", "chinese"];
 const distOptions = [10, 20, 30, 50];
@@ -27,8 +29,33 @@ const defaultCriteria = {
 const Diner = (props) => {
   const [favTrucks, setFavTrucks] = useState(trucks);
   const [trucksNearby, setTrucksNearby] = useState(trucks);
-  const [location, getLocation, getDistInKm] = useLocation();
   const [searchCriteria, setSearchCriteria] = useState(defaultCriteria);
+
+  const { getDistInKm, location, setLocation } = props;
+
+  const getLocation = () => {
+    const errorHandler = (err) => {
+      if (err.code === 1) {
+        alert("Error: Access is denied!");
+      } else if (err.code === 2) {
+        alert("Error: Position is unavailable!");
+      }
+    };
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          setLocation({ latitude: latitude, longitude: longitude });
+        },
+        errorHandler,
+        { timeout: 60000 }
+      );
+    } else {
+      alert("Sorry, browser does not support geolocation!");
+    }
+  };
 
   const capitalize = (s) => {
     if (typeof s !== "string") return "";
@@ -37,26 +64,7 @@ const Diner = (props) => {
 
   const mapTrucksToCards = (trucks) => {
     return trucks.map((truck) => {
-      const truckLocation = {
-        latitude: truck.latitude,
-        longitude: truck.longitude,
-      };
-
-      return (
-        <CardContainer>
-          <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src={truck.truck_img} />
-            <Card.Body>
-              <Card.Text>
-                Distance: {`${getDistInKm(location, truckLocation)} km`}
-              </Card.Text>
-              <Card.Text>Cuisine Type: {truck.cuisine_type}</Card.Text>
-              <Card.Text>Departure Time: {truck.departure_time}</Card.Text>
-              <Button variant="primary">See Menu</Button>
-            </Card.Body>
-          </Card>
-        </CardContainer>
-      );
+      return <TruckCard truck={truck} />;
     });
   };
 
@@ -134,19 +142,18 @@ const Diner = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return { location: state.location, getDistInKm: state.getDistInKm };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    setLocation: (location) => {
+      dispatch(setLocation(location));
+    },
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Diner);
-
-const CardContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
 
 const Label = styled.label`
   margin: 0;
