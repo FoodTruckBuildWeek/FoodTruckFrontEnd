@@ -38,5 +38,9 @@ export const reducer = (state = initialState, action) => {
       return { ...state, location: action.payload };
     case SET_TOKEN:
       return { ...state, token: action.payload };
+    case SET_LOCATION:
+      return { ...state, location: action.payload };
+    default:
+      return state;
   }
 };
