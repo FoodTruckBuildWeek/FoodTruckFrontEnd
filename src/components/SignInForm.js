@@ -1,32 +1,48 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
+import axios from "axios";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 const formSchema = {
   username: "",
   password: "",
 };
 
-const SignInForm = () => {
-  const [formValues, setFormValues] = useState(formSchema);
+const SignInForm = (props) => {
+  const [credentials, setCredentials] = useState(formSchema);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
+    setCredentials({
+      ...credentials,
       [name]: value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const login = (e) => {
     e.preventDefault();
     //get token from server and save to local storage
+    axios
+      .post(
+        "https://foodtruckbuildweek.herokuapp.com/api/auth/login",
+        credentials
+      )
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("token", res.data.access_token);
+        //push to protected page if login is successful
+        props.history.push("/protected");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <>
       <h1>User Sign In Form</h1>
-      <Form className="form" onSubmit={handleSubmit}>
+      <Form className="form" onSubmit={login}>
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
@@ -34,7 +50,7 @@ const SignInForm = () => {
             placeholder="Enter Username"
             name="username"
             onChange={handleChange}
-            value={formValues.username}
+            value={credentials.username}
           />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
@@ -44,7 +60,7 @@ const SignInForm = () => {
             placeholder="Enter Password"
             name="password"
             onChange={handleChange}
-            value={formValues.password}
+            value={credentials.password}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
