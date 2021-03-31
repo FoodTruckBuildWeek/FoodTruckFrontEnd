@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from "axios";
 const SignUpForm = (props) => {
+  const { push } = useHistory();
+
   const formSchema = yup.object().shape({
     username: yup.string().min(3).max(15).required("Username Required"),
     email: yup.string().email("Invalid Email").required("Required"),
@@ -16,7 +20,7 @@ const SignUpForm = (props) => {
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(formSchema),
   });
-  console.log(errors);
+  console.log(handleSubmit);
 
   //   const handleChange = (e) => {
   //     console.log(e.target.name);
@@ -26,13 +30,22 @@ const SignUpForm = (props) => {
   //     });
   //     console.log(formValues);
   //   };
-  const submitForm = (e) => {
-    console.log(register);
-    e.preventDefault();
+  const submitForm = (data) => {
+    delete data.confirmPassword;
+    console.log(data);
+    axios
+      .post("https://foodtruckbuildweek.herokuapp.com/api/auth/register", data)
+      .then((res) => {
+        console.log(res);
+        push(`/confirm`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
-    <>
+    <div className="formContainer">
       <h1>User Sign Up Form</h1>
       <Form className="form" onSubmit={handleSubmit(submitForm)}>
         <Form.Group controlId="formBasicUsername">
@@ -98,11 +111,11 @@ const SignUpForm = (props) => {
           </Form.Text>
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="danger" type="submit">
           Submit
         </Button>
       </Form>
-    </>
+    </div>
   );
 };
 

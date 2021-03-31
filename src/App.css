@@ -37,10 +37,21 @@
   }
 }
 .form {
-  margin-left: 5%;
-  margin-right: 5%;
+  margin: 0 35%;
   margin-top: 4%;
+}
+.formContainer {
+  background: #2176ff;
+}
+.NavBar {
+  background: #fdca40;
 }
 .red-error-text {
   color: red;
+}
+
+.FoodTruck {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

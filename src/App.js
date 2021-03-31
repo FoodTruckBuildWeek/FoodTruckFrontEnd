@@ -5,10 +5,12 @@ import NavBar from "./components/NavBar";
 import { Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import signUpForm from "./components/signUpForm";
-
+import { Operator } from "./components/Operator";
 import CreateTruckForm from "./components/CreateTruckForm";
 import EditTruckForm from "./components/EditTruckForm";
-
+import Diner from "./components/Diner";
+import TruckMenu from "./components/TruckMenu";
+import ConfirmPage from "./components/ConfirmPage";
 function App() {
   return (
     <div className="App">
@@ -17,10 +19,14 @@ function App() {
         <Route exact path="/">
           <HomePage></HomePage>
         </Route>
-        <Route path="/SignUpNewUser" component={NewUserForm}></Route>
+        <Route path="/SignUpNewUser" component={SignUpForm}></Route>
+        <Route path="/Diner" component={Diner}></Route>
+        <Route path="/Operator" component={Operator}></Route>
         <Route path="/SignIn" component={SignInForm}></Route>
         <Route path="/CreateNewTruck" component={CreateTruckForm}></Route>
         <Route path="/EditTruckForm" component={EditTruckForm}></Route>
+        <Route path="/TruckMenu" component={TruckMenu}></Route>
+        <Route path="/confirm" component={ConfirmPage}></Route>
       </Switch>
     </div>
   );
