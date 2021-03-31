@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, NavDropdown, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { GiFoodTruck } from "react-icons/gi";
-const NavBar = () => {
+import { setToken } from "../actions";
+import { connect } from "react-redux";
+const NavBar = (props) => {
+  const { token, setToken, history } = props;
+
+  const logout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    setToken(null);
+    history.push("/SignIn");
+  };
+
   return (
     <Navbar bg="light" expand="lg" className="bg-light">
       <Navbar.Brand href="#home">
@@ -35,10 +46,27 @@ const NavBar = () => {
           <LinkContainer to="/Operator">
             <Nav.Link>Operator</Nav.Link>
           </LinkContainer>
+          {token && (
+            <LinkContainer to="/LogOut">
+              <Nav.Link onClick={logout}>Log Out</Nav.Link>
+            </LinkContainer>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
   );
 };
 
-export default NavBar;
+const mapStateToProps = (state) => {
+  return { token: state.token };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setToken: (token) => {
+      dispatch(setToken(token));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
