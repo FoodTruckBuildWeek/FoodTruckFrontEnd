@@ -6,7 +6,9 @@ import axios from "axios";
 import { setLocation } from "../actions";
 import { MAPS_API_KEY } from "../keys";
 import TruckCard from "../components/TruckCard";
-
+import ReactMapGl from "react-map-gl";
+const API_KEY =
+  "pk.eyJ1Ijoic2Ftc2luMzY5IiwiYSI6ImNrbXh5NWhpcTAwejMydXBuNWx1bnY1a2QifQ.B7q4uR5veDmd3Bex4jJB0w";
 const cuisineTypes = ["french", "mexican", "chinese"];
 const distOptions = [10, 20, 30, 50, 100000];
 console.log(MAPS_API_KEY);
@@ -31,8 +33,16 @@ const Diner = (props) => {
   const [favTrucks, setFavTrucks] = useState(trucks);
   const [trucksNearby, setTrucksNearby] = useState(trucks);
   const [searchCriteria, setSearchCriteria] = useState(defaultCriteria);
-
+  const [viewport, setViewport] = useState({
+    latitude: props.location.latitude,
+    longitude: props.location.longitude,
+    zoom: 10,
+    width: "100vw",
+    height: "100vh",
+  });
   const { getDistInKm, location, setLocation, capitalize } = props;
+
+  var mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 
   const getLocation = () => {
     const errorHandler = (err) => {
@@ -96,7 +106,18 @@ const Diner = (props) => {
   return (
     <>
       <h1>Diner</h1>
-
+      <div>
+        <ReactMapGl
+          {...viewport}
+          mapboxApiAccessToken={API_KEY}
+          mapStyle="mapbox://styles/samsin369/ckmxyhae00zvw17pgwaetf1w5"
+          onViewportChange={(viewport) => {
+            setViewport(viewport);
+          }}
+        >
+          marker
+        </ReactMapGl>
+      </div>
       <h2>Favorite Trucks</h2>
       <div className="fav-trucks">{mapTrucksToCards(favTrucks)}</div>
 
