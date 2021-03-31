@@ -5,7 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { GiFoodTruck } from "react-icons/gi";
 const NavBar = () => {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" className="bg-light">
       <Navbar.Brand href="#home">
         Food Trucks
         <GiFoodTruck size={30} />
@@ -28,6 +28,12 @@ const NavBar = () => {
           </LinkContainer>
           <LinkContainer to="/EditTruckForm">
             <Nav.Link>Edit Truck</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/Diner">
+            <Nav.Link>Diner</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/Operator">
+            <Nav.Link>Operator</Nav.Link>
           </LinkContainer>
         </Nav>
       </Navbar.Collapse>
