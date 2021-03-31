@@ -12,7 +12,9 @@ const OperatorTrucks = (props) => {
         <Card.Body>
           <Card.Title>Food Truck</Card.Title>
           <Card.Text>{props.truck.cuisine_type}</Card.Text>
-          <Button variant="primary">Edit Truck</Button>
+          <LinkContainer to="/EditTruckForm">
+            <Button variant="primary">Edit Truck</Button>
+          </LinkContainer>
           <LinkContainer to="/TruckMenu">
             <Button variant="secondary">View Menu</Button>
           </LinkContainer>
