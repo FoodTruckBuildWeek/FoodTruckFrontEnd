@@ -1,3 +1,4 @@
+import { validateYupSchema } from "formik";
 import React, { useState } from "react";
 import "./NewTruckForm.css";
 
@@ -32,7 +33,8 @@ const onCheckBoxChange = event => {
         ...formValues,
         [name]: checked
     })
-}
+};
+
 
 const onSubmit = (evt) => {
         evt.preventDefault();
@@ -44,7 +46,7 @@ return (
         <div className="truck_title">
             <h3>Create Your Food Truck Here!</h3>
         </div>
-
+        
         <div className="food_truck_name">
             <h4>The Name of Your Food Truck?</h4>
                 <label>
@@ -60,60 +62,20 @@ return (
         <div className="type_of_cuisine">
             <h4>What Is Your Cuisine Type?</h4>
 
-                <label>BBQ&nbsp;
-                <input
-                name="BBQ"
-                type="checkbox"
-                onChange={onCheckBoxChange}
-                checked={formValues.bbq}
-                />
-                </label>
-
-                <label>Sliders&nbsp;
-                <input
-                name="sliders"
-                type="checkbox"
-                onChange={onCheckBoxChange}
-                checked={formValues.sliders}
-                />
-                </label>
-
-                <label>Tacos&nbsp;
-                <input
-                name="tacos"
-                type="checkbox"
-                onChange={onCheckBoxChange}
-                checked={formValues.tacos}
-                />
-                </label>
-
-                <label>Pizza&nbsp;
-                <input
-                name="pizza"
-                type="checkbox"
-                onChange={onCheckBoxChange}
-                checked={formValues.pizza}
-                />
-                </label>
-
-                <label>Sandwich&nbsp;
-                <input
-                name="sandwich"
-                type="checkbox"
-                onChange={onCheckBoxChange}
-                checked={formValues.sandwich}
-                />
-                </label>
-
-                <label>Donut&nbsp;
-                <input
-                name="donut"
-                type="checkbox"
-                onChange={onCheckBoxChange}
-                checked={formValues.donut}
-                />
-                </label>
-        </div>
+            <select
+                onChange={onChange}
+                value={formValues.cuisine}
+                name="cuisine"
+                >
+                    <option value="">-- Cuisine Type --</option>
+                    <option value="bbq">BBQ</option>
+                    <option value="sliders">Sliders</option>
+                    <option value="tacos">Tacos</option>
+                    <option value="pizza">Pizza</option>
+                    <option value="sandwich">Sandwich</option>
+                    <option value="donut">Donut</option>
+                </select>    
+            </div> 
 
         <div className="cuisine_input">
             <h4>Do you offer another type of cuisine not listed?</h4>
@@ -129,7 +91,12 @@ return (
         </div>
 
             <button className="myButton" type="submit"  onClick={onSubmit}>Submit</button>   
-    </form>  
+    </form> 
+   
 );
 };
 export default NewTruckForm;
+
+
+
+

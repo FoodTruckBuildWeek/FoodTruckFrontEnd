@@ -4,12 +4,15 @@
     width: 500px;
     display: inline-block;
     align-items: center;
+    margin-top: 10px;
 }
 
 .truck_form {
+    margin-top: 100px;
     margin-left: 540px;
     margin-right: 540px;
     border: 2px solid rgba(33, 68, 72, 0.59);
+    background-color: cornsilk;
 }
 
 h1 {
@@ -24,6 +27,12 @@ h1 {
 
 .type_of_cuisine {
     align-items: center;
+    padding: 10px;
+}
+
+.food_truck_name, .cuisine_input {
+    align-items: center;
+    padding: 20px;
 }
 
 .myButton {
@@ -44,4 +53,3 @@ label {
     align-items: center;
     padding: 10px;
 } 
-

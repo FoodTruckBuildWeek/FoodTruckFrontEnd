@@ -4,13 +4,17 @@ import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
 import { setLocation } from "../actions";
-import { MAPS_API_KEY } from "../keys";
 import TruckCard from "../components/TruckCard";
+
 import ReactMapGl, { Marker } from "react-map-gl";
+
+
+
 
 const API_KEY =
   "pk.eyJ1Ijoic2Ftc2luMzY5IiwiYSI6ImNrbXh5NWhpcTAwejMydXBuNWx1bnY1a2QifQ.B7q4uR5veDmd3Bex4jJB0w";
 const cuisineTypes = ["french", "mexican", "chinese"];
+
 const distOptions = [10, 20, 30, 50, 100000];
 
 const defaultCriteria = {
@@ -19,7 +23,8 @@ const defaultCriteria = {
 };
 
 const Diner = (props) => {
-  console.log(MAPS_API_KEY);
+
+
   const trucksSpam = [
     {
       truck_id: 1,
@@ -34,6 +39,7 @@ const Diner = (props) => {
   const [favTrucks, setFavTrucks] = useState(trucksSpam);
   const [trucks, setTrucks] = useState([]);
   const [trucksNearby, setTrucksNearby] = useState(trucksSpam);
+
   const [searchCriteria, setSearchCriteria] = useState(defaultCriteria);
   const [viewport, setViewport] = useState({
     latitude: Number(props.location.latitude),
@@ -142,7 +148,7 @@ const Diner = (props) => {
         </ReactMapGl>
       </div>
       <h2>Favorite Trucks</h2>
-      <div className="fav-trucks">{mapTrucksToCards(favTrucks)}</div>
+      <div className="fav-trucks">{mapTrucksToCards(trucks)}</div>
 
       <Form className="form" onSubmit={handleSearch}>
         <h2>Trucks Nearby</h2>

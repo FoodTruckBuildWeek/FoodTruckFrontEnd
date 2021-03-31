@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { propTypes } from "react-bootstrap/esm/Image";
+import { setRole, setToken } from "../actions";
 
 const formSchema = {
   username: "",
@@ -11,6 +12,8 @@ const formSchema = {
 
 const SignInForm = (props) => {
   const [credentials, setCredentials] = useState(formSchema);
+
+  const { token, setToken, setRole } = props;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,8 +32,10 @@ const SignInForm = (props) => {
         credentials
       )
       .then((res) => {
+        localStorage.setItem("token", res.data.token);
         console.log(res);
-        localStorage.setItem("token", res.data.access_token);
+        setToken(res.data.token);
+        setRole(res.data.role);
         //push to protected page if login is successful
         props.history.push("/protected");
       })
@@ -72,11 +77,7 @@ const SignInForm = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return { token: state.token };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignInForm);
+export default connect(mapStateToProps, { setToken, setRole })(SignInForm);
