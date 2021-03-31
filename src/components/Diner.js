@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useLocation } from "../hooks/useLocation";
-import { Button, Card, Form } from "react-bootstrap";
+import { Button, Card, Form, Dropdown } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
 
+const cuisineTypes = ["french", "mexican", "chinese"];
+const distOptions = [10, 20, 30, 50];
+
 const trucks = [
   {
-    imageOfTruck:
-      "https://www.ddir.com/wp-content/uploads/2021/01/DDIR_foodtruck_16x9_LG-e1611626228384-1536x856.png",
-    location: { latitude: 0, longitude: 0 },
+    truck_id: 1,
+    truck_img: "arturo-rey-m6fYkq_P2Cc-unsplash.jpg",
+    cuisine_type: "french",
+    departure_time: "7:00pm",
+    latitude: "44.77777",
+    longitude: "99.00333",
   },
 ];
 
 const defaultCriteria = {
-  cuisineType: "",
+  cuisine_type: "Cuisine Type",
   radSize: 30,
 };
 
@@ -24,13 +30,28 @@ const Diner = (props) => {
   const [location, getLocation, getDistInKm] = useLocation();
   const [searchCriteria, setSearchCriteria] = useState(defaultCriteria);
 
+  const capitalize = (s) => {
+    if (typeof s !== "string") return "";
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
+
   const mapTrucksToCards = (trucks) => {
     return trucks.map((truck) => {
+      const truckLocation = {
+        latitude: truck.latitude,
+        longitude: truck.longitude,
+      };
+
       return (
         <CardContainer>
           <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src={truck.imageOfTruck} />
+            <Card.Img variant="top" src={truck.truck_img} />
             <Card.Body>
+              <Card.Text>
+                Distance: {`${getDistInKm(location, truckLocation)} km`}
+              </Card.Text>
+              <Card.Text>Cuisine Type: {truck.cuisine_type}</Card.Text>
+              <Card.Text>Departure Time: {truck.departure_time}</Card.Text>
               <Button variant="primary">See Menu</Button>
             </Card.Body>
           </Card>
@@ -39,14 +60,9 @@ const Diner = (props) => {
     });
   };
 
-  const handleChange = (e) => {
+  const handleSelect = (e) => {
     const { name, value } = e.target;
-    if (name !== "radSize" || /\D/.test(value)) {
-      setSearchCriteria({
-        ...searchCriteria,
-        [name]: value,
-      });
-    }
+    setSearchCriteria({ ...searchCriteria, [name]: value });
   };
 
   const handleSearch = (e) => {
@@ -55,9 +71,9 @@ const Diner = (props) => {
     setTrucksNearby(
       trucks.filter((truck) => {
         const isNearby =
-          getDistInKm(location, truck.location) < searchCriteria.radius;
+          getDistInKm(location, truck.location) < searchCriteria.radSize;
         if (
-          truck.cuisineType.search(searchCriteria.cuisineType) !== -1 &&
+          truck.cuisine_type.search(searchCriteria.cuisine_type) !== -1 &&
           isNearby
         ) {
           return truck;
@@ -82,26 +98,31 @@ const Diner = (props) => {
       <div>Location: {`${location.latitude} ${location.longitude}`}</div>
 
       <Form className="form" onSubmit={handleSearch}>
-        <Form.Group controlId="formBasicUsername">
-          <Form.Label>Cuisine Type</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Cuisine Type"
-            name="cuisineType"
-            onChange={handleChange}
-            value={searchCriteria.cuisineType}
-          />
-        </Form.Group>
-        <Form.Group controlId="formBasicUsername">
-          <Form.Label>Radius (km)</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Distance"
-            name="radSize"
-            onChange={handleChange}
-            value={searchCriteria.radSize}
-          />
-        </Form.Group>
+        <Label>Cuisine Type: </Label>
+        <select
+          name="cuisine_type"
+          onChange={handleSelect}
+          value={searchCriteria.cuisine_type}
+        >
+          {cuisineTypes.map((type) => {
+            return <option value={type}>{capitalize(type)}</option>;
+          })}
+        </select>
+        <Label>Distance (km): </Label>
+        <select
+          name="radSize"
+          onChange={handleSelect}
+          value={searchCriteria.radSize}
+        >
+          {distOptions.map((radSize) => {
+            return (
+              <option name="radSize" value={radSize}>
+                {radSize}
+              </option>
+            );
+          })}
+        </select>
+        <br />
         <Button variant="success" type="submit">
           Search
         </Button>
@@ -125,4 +146,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(Diner);
 const CardContainer = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+const Label = styled.label`
+  margin: 0;
+  width: fit-content;
 `;
