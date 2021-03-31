@@ -6,8 +6,7 @@ import { GiFoodTruck } from "react-icons/gi";
 import { setToken } from "../actions";
 import { connect } from "react-redux";
 const NavBar = (props) => {
-  const { token, setToken, history } = props;
-  const role = "client";
+  const { token, setToken, history, role } = props;
 
   const logout = () => {
     localStorage.removeItem("token");

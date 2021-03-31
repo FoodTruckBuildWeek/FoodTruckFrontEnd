@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+
 const OperatorTrucks = (props) => {
   return (
     <div className="FoodTruck">
