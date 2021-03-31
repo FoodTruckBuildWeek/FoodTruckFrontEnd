@@ -6,23 +6,12 @@ import axios from "axios";
 import { setLocation } from "../actions";
 import { MAPS_API_KEY } from "../keys";
 import TruckCard from "../components/TruckCard";
-import ReactMapGl from "react-map-gl";
+import ReactMapGl, { Marker } from "react-map-gl";
+
 const API_KEY =
   "pk.eyJ1Ijoic2Ftc2luMzY5IiwiYSI6ImNrbXh5NWhpcTAwejMydXBuNWx1bnY1a2QifQ.B7q4uR5veDmd3Bex4jJB0w";
 const cuisineTypes = ["french", "mexican", "chinese"];
 const distOptions = [10, 20, 30, 50, 100000];
-console.log(MAPS_API_KEY);
-const trucks = [
-  {
-    truck_id: 1,
-    truck_img:
-      "https://www.ddir.com/wp-content/uploads/2021/01/DDIR_foodtruck_16x9_LG-e1611626228384-1536x856.png",
-    cuisine_type: "french",
-    departure_time: "7:00pm",
-    latitude: "44.77777",
-    longitude: "99.00333",
-  },
-];
 
 const defaultCriteria = {
   cuisine_type: cuisineTypes[0],
@@ -30,16 +19,30 @@ const defaultCriteria = {
 };
 
 const Diner = (props) => {
-  const [favTrucks, setFavTrucks] = useState(trucks);
-  const [trucksNearby, setTrucksNearby] = useState(trucks);
+  console.log(MAPS_API_KEY);
+  const trucksSpam = [
+    {
+      truck_id: 1,
+      truck_img:
+        "https://www.ddir.com/wp-content/uploads/2021/01/DDIR_foodtruck_16x9_LG-e1611626228384-1536x856.png",
+      cuisine_type: "french",
+      departure_time: "7:00pm",
+      latitude: "44.77777",
+      longitude: "99.00333",
+    },
+  ];
+  const [favTrucks, setFavTrucks] = useState(trucksSpam);
+  const [trucks, setTrucks] = useState([]);
+  const [trucksNearby, setTrucksNearby] = useState(trucksSpam);
   const [searchCriteria, setSearchCriteria] = useState(defaultCriteria);
   const [viewport, setViewport] = useState({
-    latitude: props.location.latitude,
-    longitude: props.location.longitude,
+    latitude: Number(props.location.latitude),
+    longitude: Number(props.location.longitude),
     zoom: 10,
-    width: "100vw",
-    height: "100vh",
+    width: "100%",
+    height: "500px",
   });
+  console.log(trucks);
   const { getDistInKm, location, setLocation, capitalize } = props;
 
   var mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
@@ -101,6 +104,15 @@ const Diner = (props) => {
   useEffect(() => {
     getLocation();
     //set available trucks and favorite trucks from server data
+    axios
+      .get("https://foodtruckbuildweek.herokuapp.com/api/trucks")
+      .then((res) => {
+        console.log(res);
+        setTrucks(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -110,12 +122,23 @@ const Diner = (props) => {
         <ReactMapGl
           {...viewport}
           mapboxApiAccessToken={API_KEY}
-          mapStyle="mapbox://styles/samsin369/ckmxyhae00zvw17pgwaetf1w5"
+          mapStyle="mapbox://styles/samsin369/ckmy03iat10g917mn7d0lppml"
           onViewportChange={(viewport) => {
             setViewport(viewport);
           }}
         >
-          marker
+          {trucks.map((truck) => (
+            <Marker
+              key={truck.id}
+              latitude={Number(truck.latitude)}
+              longitude={Number(truck.longitude)}
+            >
+              {console.log(Number(truck.latitude))}
+              <button class="marker-btn">
+                <img src="./pig.svg" alt="Truck" />
+              </button>
+            </Marker>
+          ))}
         </ReactMapGl>
       </div>
       <h2>Favorite Trucks</h2>
