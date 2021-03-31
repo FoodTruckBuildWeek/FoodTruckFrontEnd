@@ -8,12 +8,13 @@ import { setLocation } from "../actions";
 import TruckCard from "../components/TruckCard";
 
 const cuisineTypes = ["french", "mexican", "chinese"];
-const distOptions = [10, 20, 30, 50];
+const distOptions = [10, 20, 30, 50, 100000];
 
 const trucks = [
   {
     truck_id: 1,
-    truck_img: "arturo-rey-m6fYkq_P2Cc-unsplash.jpg",
+    truck_img:
+      "https://www.ddir.com/wp-content/uploads/2021/01/DDIR_foodtruck_16x9_LG-e1611626228384-1536x856.png",
     cuisine_type: "french",
     departure_time: "7:00pm",
     latitude: "44.77777",
@@ -22,7 +23,7 @@ const trucks = [
 ];
 
 const defaultCriteria = {
-  cuisine_type: "Cuisine Type",
+  cuisine_type: cuisineTypes[0],
   radSize: 30,
 };
 
@@ -31,7 +32,7 @@ const Diner = (props) => {
   const [trucksNearby, setTrucksNearby] = useState(trucks);
   const [searchCriteria, setSearchCriteria] = useState(defaultCriteria);
 
-  const { getDistInKm, location, setLocation } = props;
+  const { getDistInKm, location, setLocation, capitalize } = props;
 
   const getLocation = () => {
     const errorHandler = (err) => {
@@ -57,11 +58,6 @@ const Diner = (props) => {
     }
   };
 
-  const capitalize = (s) => {
-    if (typeof s !== "string") return "";
-    return s.charAt(0).toUpperCase() + s.slice(1);
-  };
-
   const mapTrucksToCards = (trucks) => {
     return trucks.map((truck) => {
       return <TruckCard truck={truck} />;
@@ -78,12 +74,13 @@ const Diner = (props) => {
     //use getDistInKm to filter nearby trucks with matching cuisine type
     setTrucksNearby(
       trucks.filter((truck) => {
+        const truckLocation = {
+          latitude: truck.latitude,
+          longitude: truck.longitude,
+        };
         const isNearby =
-          getDistInKm(location, truck.location) < searchCriteria.radSize;
-        if (
-          truck.cuisine_type.search(searchCriteria.cuisine_type) !== -1 &&
-          isNearby
-        ) {
+          getDistInKm(location, truckLocation) < searchCriteria.radSize;
+        if (truck.cuisine_type === searchCriteria.cuisine_type && isNearby) {
           return truck;
         }
         return null;
@@ -103,9 +100,9 @@ const Diner = (props) => {
       <h2>Favorite Trucks</h2>
       <div className="fav-trucks">{mapTrucksToCards(favTrucks)}</div>
 
-      <div>Location: {`${location.latitude} ${location.longitude}`}</div>
-
       <Form className="form" onSubmit={handleSearch}>
+        <h2>Trucks Nearby</h2>
+        <div>Location: {`${location.latitude} ${location.longitude}`}</div>
         <Label>Cuisine Type: </Label>
         <select
           name="cuisine_type"
@@ -135,14 +132,17 @@ const Diner = (props) => {
           Search
         </Button>
       </Form>
-      <h2>Trucks Nearby</h2>
       <div className="nearby-trucks">{mapTrucksToCards(trucksNearby)}</div>
     </>
   );
 };
 
 const mapStateToProps = (state) => {
-  return { location: state.location, getDistInKm: state.getDistInKm };
+  return {
+    capitalize: state.capitalize,
+    location: state.location,
+    getDistInKm: state.getDistInKm,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

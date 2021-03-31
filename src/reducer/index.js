@@ -2,6 +2,10 @@ import { SET_LOCATION } from "../actions";
 
 const initialState = {
   title: "Welcome to Redux land",
+  capitalize: (s) => {
+    if (typeof s !== "string") return "";
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  },
   location: {},
   getDistInKm: (loc1, loc2) => {
     const deg2rad = (deg) => {
