@@ -6,7 +6,7 @@ import { GiFoodTruck } from "react-icons/gi";
 import { setToken } from "../actions";
 import { connect } from "react-redux";
 const NavBar = (props) => {
-  const { token, setToken, history } = props;
+  const { token, setToken, history, role } = props;
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -35,18 +35,17 @@ const NavBar = (props) => {
               </LinkContainer>
             </>
           )}
-          <LinkContainer to="/NewTruckForm">
-            <Nav.Link>Create Truck</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/EditTruckForm">
-            <Nav.Link>Edit Truck</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/Diner">
-            <Nav.Link>Diner</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/Operator">
-            <Nav.Link>Operator</Nav.Link>
-          </LinkContainer>
+          {!role === "client" ? (
+            <>
+              {" "}
+              <LinkContainer to="/NewTruckForm">
+                <Nav.Link>Create Truck</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/EditTruckForm">
+                <Nav.Link>Edit Truck</Nav.Link>
+              </LinkContainer>
+            </>
+          ) : null}
           {token && (
             <LinkContainer to="/SignIn">
               <Nav.Link onClick={logout}>Log Out</Nav.Link>
@@ -59,7 +58,7 @@ const NavBar = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return { token: state.token };
+  return { token: state.token, role: state.role };
 };
 
 const mapDispatchToProps = (dispatch) => {

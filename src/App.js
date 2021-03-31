@@ -20,8 +20,6 @@ import { connect } from "react-redux";
 function App(props) {
   const { role } = props;
 
-  console.log(role);
-
   return (
     <div className="App">
       <NavBar />

@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+
 const OperatorTrucks = (props) => {
   return (
     <div className="FoodTruck">
@@ -12,7 +13,9 @@ const OperatorTrucks = (props) => {
         <Card.Body>
           <Card.Title>Food Truck</Card.Title>
           <Card.Text>{props.truck.cuisine_type}</Card.Text>
-          <Button variant="primary">Edit Truck</Button>
+          <LinkContainer to="/EditTruckForm">
+            <Button variant="primary">Edit Truck</Button>
+          </LinkContainer>
           <LinkContainer to="/TruckMenu">
             <Button variant="secondary">View Menu</Button>
           </LinkContainer>
