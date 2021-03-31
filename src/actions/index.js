@@ -1,8 +1,7 @@
-export const ADD_NEW_USER = "ADD_NEW_USER";
 
-export const createNewUser = (userData) => {
-  return {
-    type: ADD_NEW_USER,
-    payload: userData,
-  };
+export const SET_LOCATION = "SET_LOCATION";
+
+export const setLocation = (location) => {
+  return { type: SET_LOCATION, payload: location };
+
 };
