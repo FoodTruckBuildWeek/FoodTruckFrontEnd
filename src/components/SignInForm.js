@@ -13,7 +13,7 @@ const formSchema = {
 const SignInForm = (props) => {
   const [credentials, setCredentials] = useState(formSchema);
 
-  const { setToken, history } = props;
+  const { token, setToken } = props;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,11 +32,10 @@ const SignInForm = (props) => {
         credentials
       )
       .then((res) => {
-        console.log(res);
-        localStorage.setItem("token", res.data.access_token);
-        setToken(res.data);
+        localStorage.setItem("token", res.data.token);
+        setToken(res.data.token);
         //push to protected page if login is successful
-        history.push("/protected");
+        props.history.push("/Diner");
       })
       .catch((err) => {
         console.log(err);
@@ -76,7 +75,7 @@ const SignInForm = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return { token: state.token };
 };
 
 const mapDispatchToProps = (dispatch) => {

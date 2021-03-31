@@ -8,11 +8,9 @@ import { connect } from "react-redux";
 const NavBar = (props) => {
   const { token, setToken, history } = props;
 
-  const logout = (e) => {
-    e.preventDefault();
+  const logout = () => {
     localStorage.removeItem("token");
     setToken(null);
-    history.push("/SignIn");
   };
 
   return (
@@ -27,13 +25,16 @@ const NavBar = (props) => {
           <LinkContainer to="/">
             <Nav.Link>Home</Nav.Link>
           </LinkContainer>
-
-          <LinkContainer to="/SignUpNewUser">
-            <Nav.Link>Sign Up</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/SignIn">
-            <Nav.Link>Sign In</Nav.Link>
-          </LinkContainer>
+          {!token && (
+            <>
+              <LinkContainer to="/SignUpNewUser">
+                <Nav.Link>Sign Up</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/SignIn">
+                <Nav.Link>Sign In</Nav.Link>
+              </LinkContainer>
+            </>
+          )}
           <LinkContainer to="/NewTruckForm">
             <Nav.Link>Create Truck</Nav.Link>
           </LinkContainer>
@@ -47,7 +48,7 @@ const NavBar = (props) => {
             <Nav.Link>Operator</Nav.Link>
           </LinkContainer>
           {token && (
-            <LinkContainer to="/LogOut">
+            <LinkContainer to="/SignIn">
               <Nav.Link onClick={logout}>Log Out</Nav.Link>
             </LinkContainer>
           )}
