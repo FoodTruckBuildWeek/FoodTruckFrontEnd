@@ -4,12 +4,10 @@ import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
 import { setLocation } from "../actions";
-import { MAPS_API_KEY } from "../keys";
 import TruckCard from "../components/TruckCard";
 
 const cuisineTypes = ["french", "mexican", "vietnamese"];
 const distOptions = [10, 20, 30, 50, 100000];
-
 
 const defaultCriteria = {
   cuisine_type: cuisineTypes[0],
@@ -139,7 +137,6 @@ const Diner = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.token,
     capitalize: state.capitalize,
     location: state.location,
     getDistInKm: state.getDistInKm,
