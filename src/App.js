@@ -28,7 +28,7 @@ function App() {
         <Route path="/Operator" component={Operator}></Route>
 
         <Route path="/SignIn" component={SignInForm}></Route>
-        
+
         <Route path="/NewTruckForm" component={NewTruckForm}></Route>
         <Route path="/EditTruckForm" component={EditTruckForm}></Route>
         <Route path="/TruckMenu" component={TruckMenu}></Route>
