@@ -5,14 +5,16 @@ import NavBar from "./components/NavBar";
 import { Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import signUpForm from "./components/signUpForm";
-import NewTruckForm from "./components/NewTruckForm"
+import NewTruckForm from "./components/NewTruckForm";
 // import CreateTruckForm from "./components/CreateTruckForm";
 import EditTruckForm from "./components/EditTruckForm";
+import Diner from "./components/Diner";
 
 function App() {
   return (
     <div className="App">
       <NavBar />
+      <Diner />
       <Switch>
         <Route exact path="/">
           <HomePage></HomePage>
