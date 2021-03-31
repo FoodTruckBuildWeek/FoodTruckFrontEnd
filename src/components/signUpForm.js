@@ -102,8 +102,8 @@ const SignUpForm = (props) => {
         <Form.Group>
           <Form.Label>Select User Type</Form.Label>
           <Form.Control as="select" type="select" name="role" ref={register}>
-            <option>client</option>
-            <option>vendor</option>
+            <option>Client</option>
+            <option>Operator</option>
           </Form.Control>
 
           <Form.Text className="red-error-text">
