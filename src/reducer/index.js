@@ -1,6 +1,7 @@
-import { SET_LOCATION, SET_TOKEN } from "../actions";
+import { SET_LOCATION, SET_TOKEN, SET_ROLE } from "../actions";
 
 const initialState = {
+  role: "",
   token: null,
   title: "Welcome to Redux land",
   capitalize: (s) => {
@@ -38,6 +39,15 @@ export const reducer = (state = initialState, action) => {
     case SET_LOCATION:
       return { ...state, location: action.payload };
     case SET_TOKEN:
-      return { ...state, token: action.payload };
+      console.log(action.payload);
+      return {
+        ...state,
+        token: action.payload,
+      };
+    case SET_ROLE:
+      return {
+        ...state,
+        role: action.payload,
+      };
   }
 };
