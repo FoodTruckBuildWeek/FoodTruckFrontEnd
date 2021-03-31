@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { useLocation } from "../hooks/useLocation";
-import { Button, Card, Form, Dropdown } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
+import { setLocation } from "../actions";
+
+import TruckCard from "../components/TruckCard";
 
 const cuisineTypes = ["french", "mexican", "chinese"];
-const distOptions = [10, 20, 30, 50];
+const distOptions = [10, 20, 30, 50, 100000];
 
 const trucks = [
   {
     truck_id: 1,
-    truck_img: "arturo-rey-m6fYkq_P2Cc-unsplash.jpg",
+    truck_img:
+      "https://www.ddir.com/wp-content/uploads/2021/01/DDIR_foodtruck_16x9_LG-e1611626228384-1536x856.png",
     cuisine_type: "french",
     departure_time: "7:00pm",
     latitude: "44.77777",
@@ -20,43 +23,44 @@ const trucks = [
 ];
 
 const defaultCriteria = {
-  cuisine_type: "Cuisine Type",
+  cuisine_type: cuisineTypes[0],
   radSize: 30,
 };
 
 const Diner = (props) => {
   const [favTrucks, setFavTrucks] = useState(trucks);
   const [trucksNearby, setTrucksNearby] = useState(trucks);
-  const [location, getLocation, getDistInKm] = useLocation();
   const [searchCriteria, setSearchCriteria] = useState(defaultCriteria);
 
-  const capitalize = (s) => {
-    if (typeof s !== "string") return "";
-    return s.charAt(0).toUpperCase() + s.slice(1);
+  const { getDistInKm, location, setLocation, capitalize } = props;
+
+  const getLocation = () => {
+    const errorHandler = (err) => {
+      if (err.code === 1) {
+        alert("Error: Access is denied!");
+      } else if (err.code === 2) {
+        alert("Error: Position is unavailable!");
+      }
+    };
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          setLocation({ latitude: latitude, longitude: longitude });
+        },
+        errorHandler,
+        { timeout: 60000 }
+      );
+    } else {
+      alert("Sorry, browser does not support geolocation!");
+    }
   };
 
   const mapTrucksToCards = (trucks) => {
     return trucks.map((truck) => {
-      const truckLocation = {
-        latitude: truck.latitude,
-        longitude: truck.longitude,
-      };
-
-      return (
-        <CardContainer>
-          <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src={truck.truck_img} />
-            <Card.Body>
-              <Card.Text>
-                Distance: {`${getDistInKm(location, truckLocation)} km`}
-              </Card.Text>
-              <Card.Text>Cuisine Type: {truck.cuisine_type}</Card.Text>
-              <Card.Text>Departure Time: {truck.departure_time}</Card.Text>
-              <Button variant="primary">See Menu</Button>
-            </Card.Body>
-          </Card>
-        </CardContainer>
-      );
+      return <TruckCard truck={truck} />;
     });
   };
 
@@ -70,12 +74,13 @@ const Diner = (props) => {
     //use getDistInKm to filter nearby trucks with matching cuisine type
     setTrucksNearby(
       trucks.filter((truck) => {
+        const truckLocation = {
+          latitude: truck.latitude,
+          longitude: truck.longitude,
+        };
         const isNearby =
-          getDistInKm(location, truck.location) < searchCriteria.radSize;
-        if (
-          truck.cuisine_type.search(searchCriteria.cuisine_type) !== -1 &&
-          isNearby
-        ) {
+          getDistInKm(location, truckLocation) < searchCriteria.radSize;
+        if (truck.cuisine_type === searchCriteria.cuisine_type && isNearby) {
           return truck;
         }
         return null;
@@ -95,9 +100,9 @@ const Diner = (props) => {
       <h2>Favorite Trucks</h2>
       <div className="fav-trucks">{mapTrucksToCards(favTrucks)}</div>
 
-      <div>Location: {`${location.latitude} ${location.longitude}`}</div>
-
       <Form className="form" onSubmit={handleSearch}>
+        <h2>Trucks Nearby</h2>
+        <div>Location: {`${location.latitude} ${location.longitude}`}</div>
         <Label>Cuisine Type: </Label>
         <select
           name="cuisine_type"
@@ -127,26 +132,28 @@ const Diner = (props) => {
           Search
         </Button>
       </Form>
-      <h2>Trucks Nearby</h2>
       <div className="nearby-trucks">{mapTrucksToCards(trucksNearby)}</div>
     </>
   );
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    capitalize: state.capitalize,
+    location: state.location,
+    getDistInKm: state.getDistInKm,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    setLocation: (location) => {
+      dispatch(setLocation(location));
+    },
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Diner);
-
-const CardContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
 
 const Label = styled.label`
   margin: 0;
