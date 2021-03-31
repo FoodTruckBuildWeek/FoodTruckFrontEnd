@@ -7,20 +7,8 @@ import { setLocation } from "../actions";
 
 import TruckCard from "../components/TruckCard";
 
-const cuisineTypes = ["french", "mexican", "chinese"];
+const cuisineTypes = ["french", "mexican", "vietnamese"];
 const distOptions = [10, 20, 30, 50, 100000];
-
-const trucks = [
-  {
-    truck_id: 1,
-    truck_img:
-      "https://www.ddir.com/wp-content/uploads/2021/01/DDIR_foodtruck_16x9_LG-e1611626228384-1536x856.png",
-    cuisine_type: "french",
-    departure_time: "7:00pm",
-    latitude: "44.77777",
-    longitude: "99.00333",
-  },
-];
 
 const defaultCriteria = {
   cuisine_type: cuisineTypes[0],
@@ -28,8 +16,9 @@ const defaultCriteria = {
 };
 
 const Diner = (props) => {
-  const [favTrucks, setFavTrucks] = useState(trucks);
-  const [trucksNearby, setTrucksNearby] = useState(trucks);
+  const [trucks, setTrucks] = useState([]);
+  const [favTrucks, setFavTrucks] = useState([]);
+  const [trucksNearby, setTrucksNearby] = useState([]);
   const [searchCriteria, setSearchCriteria] = useState(defaultCriteria);
 
   const { getDistInKm, location, setLocation, capitalize } = props;
@@ -91,6 +80,15 @@ const Diner = (props) => {
   useEffect(() => {
     getLocation();
     //set available trucks and favorite trucks from server data
+    axios
+      .get("https://foodtruckbuildweek.herokuapp.com/api/trucks")
+      .then((res) => {
+        console.log(res);
+        setTrucks(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -98,7 +96,7 @@ const Diner = (props) => {
       <h1>Diner</h1>
 
       <h2>Favorite Trucks</h2>
-      <div className="fav-trucks">{mapTrucksToCards(favTrucks)}</div>
+      <div className="fav-trucks">{mapTrucksToCards(trucks)}</div>
 
       <Form className="form" onSubmit={handleSearch}>
         <h2>Trucks Nearby</h2>
@@ -139,6 +137,7 @@ const Diner = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    token: state.token,
     capitalize: state.capitalize,
     location: state.location,
     getDistInKm: state.getDistInKm,

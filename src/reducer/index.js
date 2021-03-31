@@ -1,6 +1,4 @@
-
-import { ADD_NEW_USER } from "../actions";
-
+import { SET_LOCATION, SET_TOKEN } from "../actions";
 
 const initialState = {
   title: "Welcome to Redux land",
@@ -34,12 +32,11 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_NEW_USER: {
-      return state;
-    }
     default:
       return state;
     case SET_LOCATION:
       return { ...state, location: action.payload };
+    case SET_TOKEN:
+      return { ...state, token: action.payload };
   }
 };
