@@ -52,6 +52,10 @@
 .mapContainer {
   width: 100%;
 }
+.marker-button {
+  height: 100px;
+  width: 100px;
+}
 
 .FoodTruck {
   display: flex;
