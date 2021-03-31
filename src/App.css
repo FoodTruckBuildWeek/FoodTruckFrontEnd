@@ -58,3 +58,24 @@
   justify-content: center;
   align-items: center;
 }
+
+.ftf {
+  background-color: cornsilk;
+}
+
+h1 {
+  padding: 10px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.truck {
+  margin: 40px;
+  border: turquoise solid 2px;
+}
+
+p {
+  font-size: 16px;
+  margin: 70px;
+  padding-bottom: 15px;
+
+}

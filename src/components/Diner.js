@@ -4,25 +4,14 @@ import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
 import { setLocation } from "../actions";
-import { MAPS_API_KEY } from "../keys";
 import TruckCard from "../components/TruckCard";
+
 import ReactMapGl from "react-map-gl";
 const API_KEY =
   "pk.eyJ1Ijoic2Ftc2luMzY5IiwiYSI6ImNrbXh5NWhpcTAwejMydXBuNWx1bnY1a2QifQ.B7q4uR5veDmd3Bex4jJB0w";
 const cuisineTypes = ["french", "mexican", "chinese"];
+
 const distOptions = [10, 20, 30, 50, 100000];
-console.log(MAPS_API_KEY);
-const trucks = [
-  {
-    truck_id: 1,
-    truck_img:
-      "https://www.ddir.com/wp-content/uploads/2021/01/DDIR_foodtruck_16x9_LG-e1611626228384-1536x856.png",
-    cuisine_type: "french",
-    departure_time: "7:00pm",
-    latitude: "44.77777",
-    longitude: "99.00333",
-  },
-];
 
 const defaultCriteria = {
   cuisine_type: cuisineTypes[0],
@@ -30,8 +19,9 @@ const defaultCriteria = {
 };
 
 const Diner = (props) => {
-  const [favTrucks, setFavTrucks] = useState(trucks);
-  const [trucksNearby, setTrucksNearby] = useState(trucks);
+  const [trucks, setTrucks] = useState([]);
+  const [favTrucks, setFavTrucks] = useState([]);
+  const [trucksNearby, setTrucksNearby] = useState([]);
   const [searchCriteria, setSearchCriteria] = useState(defaultCriteria);
   const [viewport, setViewport] = useState({
     latitude: props.location.latitude,
@@ -101,6 +91,15 @@ const Diner = (props) => {
   useEffect(() => {
     getLocation();
     //set available trucks and favorite trucks from server data
+    axios
+      .get("https://foodtruckbuildweek.herokuapp.com/api/trucks")
+      .then((res) => {
+        console.log(res);
+        setTrucks(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -119,7 +118,7 @@ const Diner = (props) => {
         </ReactMapGl>
       </div>
       <h2>Favorite Trucks</h2>
-      <div className="fav-trucks">{mapTrucksToCards(favTrucks)}</div>
+      <div className="fav-trucks">{mapTrucksToCards(trucks)}</div>
 
       <Form className="form" onSubmit={handleSearch}>
         <h2>Trucks Nearby</h2>
