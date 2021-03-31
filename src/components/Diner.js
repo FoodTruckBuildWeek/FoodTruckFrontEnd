@@ -5,11 +5,8 @@ import styled from "styled-components";
 import axios from "axios";
 import { setLocation } from "../actions";
 import TruckCard from "../components/TruckCard";
-
+import { GiFoodTruck } from "react-icons/gi";
 import ReactMapGl, { Marker } from "react-map-gl";
-
-
-
 
 const API_KEY =
   "pk.eyJ1Ijoic2Ftc2luMzY5IiwiYSI6ImNrbXh5NWhpcTAwejMydXBuNWx1bnY1a2QifQ.B7q4uR5veDmd3Bex4jJB0w";
@@ -23,8 +20,6 @@ const defaultCriteria = {
 };
 
 const Diner = (props) => {
-
-
   const trucksSpam = [
     {
       truck_id: 1,
@@ -128,7 +123,7 @@ const Diner = (props) => {
         <ReactMapGl
           {...viewport}
           mapboxApiAccessToken={API_KEY}
-          mapStyle="mapbox://styles/samsin369/ckmy03iat10g917mn7d0lppml"
+          mapStyle="mapbox://styles/samsin369/ckmy2nqmm1ecq17qh97ylapvf"
           onViewportChange={(viewport) => {
             setViewport(viewport);
           }}
@@ -139,10 +134,7 @@ const Diner = (props) => {
               latitude={Number(truck.latitude)}
               longitude={Number(truck.longitude)}
             >
-              {console.log(Number(truck.latitude))}
-              <button class="marker-btn">
-                <img src="./pig.svg" alt="Truck" />
-              </button>
+              <GiFoodTruck className="marker" />
             </Marker>
           ))}
         </ReactMapGl>
