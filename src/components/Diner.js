@@ -9,6 +9,8 @@ import { GiFoodTruck } from "react-icons/gi";
 import ReactMapGl, { Marker } from "react-map-gl";
 import Loading from "./Loading";
 
+import marker from "../images/marker.png";
+
 const API_KEY =
   "pk.eyJ1Ijoic2Ftc2luMzY5IiwiYSI6ImNrbXh5NWhpcTAwejMydXBuNWx1bnY1a2QifQ.B7q4uR5veDmd3Bex4jJB0w";
 const cuisineTypes = ["french", "mexican", "vietnamese"];
@@ -127,6 +129,9 @@ const Diner = (props) => {
             setViewport(viewport);
           }}
         >
+          <Marker latitude={location.latitude} longitude={location.longitude}>
+            <img src={marker} alt="you" />
+          </Marker>
           {trucks.map((truck) => {
             return (
               <Marker
