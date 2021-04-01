@@ -203,18 +203,17 @@ p {
   font-size: 50px;
 }
 
-.header{
-  height:80vh;
-  display:flex;
+.header {
+  height: 80vh;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items:center;
-  background-size:cover;
+  align-items: center;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
-  text-align:center;
+  text-align: center;
 }
-
 
 .FoodTruck {
   display: flex;
@@ -242,16 +241,16 @@ h1 {
   padding-bottom: 15px;
 }
 
-.header_text{
+.header_text {
   margin: 20%;
   margin-top: 2%;
   margin-bottom: -5%;
   font-size: 18px;
 }
 
-.container{
-  display:flex;
-  text-align:center;
+.container {
+  display: flex;
+  text-align: center;
   border: dotted turquoise 2px;
   padding: 10px;
   margin: 10%;
@@ -259,43 +258,43 @@ h1 {
   background-color: cornsilk;
 }
 
-.container p{
-  text-align:justify;
+.container p {
+  text-align: justify;
   border: dotted blue 2px;
   padding: 15px;
 }
 
-.container div{
-  width:95%;
-} 
+.container div {
+  width: 95%;
+}
 
-.container .text{
-  display:flex;
+.container .text {
+  display: flex;
   justify-content: center;
   align-items: center;
-  padding:10% 0;
-} 
+  padding: 10% 0;
+}
 
-.bg{
-  background-size:70%;
-  background-position:center;
+.bg {
+  background-size: 70%;
+  background-position: center;
   background-repeat: no-repeat;
-} 
+}
 
 .sandwiches {
-  background-image: url('./images/sandwich.jpg');
+  background-image: url("./images/sandwich.jpg");
 }
 
 .pizza {
-  background-image: url('./images/pizza.jpg');
+  background-image: url("./images/pizza.jpg");
 }
 .tacos {
-  background-image:url('./images/tacos.jpg');
+  background-image: url("./images/tacos.jpg");
 }
 .donuts {
-  background-image:url('./images/donuts.jpg');
+  background-image: url("./images/donuts.jpg");
 }
 
 .trucks {
-  background-image:url('./images/diners.jpg');
+  background-image: url("./images/diners.jpg");
 }
