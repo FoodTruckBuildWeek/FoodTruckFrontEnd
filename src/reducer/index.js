@@ -1,4 +1,9 @@
-import { SET_LOCATION, SET_TOKEN, SET_ROLE } from "../actions";
+import {
+  SET_LOCATION,
+  SET_TOKEN,
+  SET_ROLE,
+  SET_CURRENT_TRUCK_ID,
+} from "../actions";
 
 const initialState = {
   role: "",
@@ -9,6 +14,7 @@ const initialState = {
     return s.charAt(0).toUpperCase() + s.slice(1);
   },
   location: {},
+  current_truck_id: 0,
   getDistInKm: (loc1, loc2) => {
     const deg2rad = (deg) => {
       return deg * (Math.PI / 180);
@@ -48,6 +54,12 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         role: action.payload,
+      };
+    case SET_CURRENT_TRUCK_ID:
+      console.log(action.payload);
+      return {
+        ...state,
+        current_truck_id: action.payload,
       };
   }
 };

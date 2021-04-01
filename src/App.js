@@ -40,7 +40,9 @@ function App(props) {
         <Route path="/SignIn" component={SignInForm}></Route>
 
         <Route path="/NewTruckForm" component={NewTruckForm}></Route>
-        <Route path="/EditTruckForm" component={EditTruckForm}></Route>
+        <Route path="/EditTruckForm">
+          <EditTruckForm {...props} />
+        </Route>
         <Route path="/TruckMenu" component={TruckMenu}></Route>
         <Route path="/confirm" component={ConfirmPage}></Route>
       </Switch>

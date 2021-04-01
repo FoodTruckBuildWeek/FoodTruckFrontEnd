@@ -8,7 +8,6 @@ import { reducer } from "./reducer";
 import { BrowserRouter as Router } from "react-router-dom";
 
 const store = createStore(reducer);
-console.log(store.getState());
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
