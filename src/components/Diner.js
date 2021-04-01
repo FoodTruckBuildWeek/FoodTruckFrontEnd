@@ -134,7 +134,7 @@ const Diner = (props) => {
               latitude={Number(truck.latitude)}
               longitude={Number(truck.longitude)}
             >
-              <GiFoodTruck className="marker" />
+              <div></div>
             </Marker>
           ))}
         </ReactMapGl>

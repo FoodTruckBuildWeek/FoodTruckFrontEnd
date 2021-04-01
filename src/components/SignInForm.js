@@ -8,6 +8,7 @@ import { setRole, setToken } from "../actions";
 const formSchema = {
   username: "",
   password: "",
+  role: "client",
 };
 
 const SignInForm = (props) => {
@@ -68,6 +69,10 @@ const SignInForm = (props) => {
             value={credentials.password}
           />
         </Form.Group>
+        <select name="role" onChange={handleChange}>
+          <option value="client">Client</option>
+          <option value="operator">Operator</option>
+        </select>
         <Button variant="primary" type="submit">
           Submit
         </Button>
