@@ -37,8 +37,6 @@ const Diner = (props) => {
 
   const [searchCriteria, setSearchCriteria] = useState(defaultCriteria);
   const [viewport, setViewport] = useState({
-    latitude: Number(props.location.latitude),
-    longitude: Number(props.location.longitude),
     zoom: 10,
     width: "100%",
     height: "500px",
@@ -63,6 +61,11 @@ const Diner = (props) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
           setLocation({ latitude: latitude, longitude: longitude });
+          setViewport({
+            ...viewport,
+            latitude: latitude,
+            longitude: longitude,
+          });
         },
         errorHandler,
         { timeout: 60000 }
@@ -128,15 +131,17 @@ const Diner = (props) => {
             setViewport(viewport);
           }}
         >
-          {trucks.map((truck) => (
-            <Marker
-              key={truck.id}
-              latitude={Number(truck.latitude)}
-              longitude={Number(truck.longitude)}
-            >
-              <div></div>
-            </Marker>
-          ))}
+          {trucks.map((truck) => {
+            return (
+              <Marker
+                key={truck.id}
+                latitude={Number(truck.latitude)}
+                longitude={Number(truck.longitude)}
+              >
+                <GiFoodTruck className="marker" />
+              </Marker>
+            );
+          })}
         </ReactMapGl>
       </div>
       <h2>Favorite Trucks</h2>
