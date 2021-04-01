@@ -56,7 +56,6 @@ export const reducer = (state = initialState, action) => {
         role: action.payload,
       };
     case SET_CURRENT_TRUCK_ID:
-      console.log(action.payload);
       return {
         ...state,
         current_truck_id: action.payload,

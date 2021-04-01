@@ -5,9 +5,7 @@ import { connect } from "react-redux";
 import { setCurrentTruckId } from "../actions";
 const OperatorTrucks = (props) => {
   const handleClick = (e) => {
-    console.log(props);
-
-    props.setCurrentTruckId(e);
+    props.setCurrentTruckId(props.truck.truck_id);
   };
 
   return (
@@ -36,4 +34,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setCurrentTruckId })(OperatorTrucks);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCurrentTruckId: (id) => {
+      dispatch(setCurrentTruckId(id));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(OperatorTrucks);
