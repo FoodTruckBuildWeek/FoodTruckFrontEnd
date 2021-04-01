@@ -11,7 +11,7 @@ import Loading from "./Loading";
 
 const API_KEY =
   "pk.eyJ1Ijoic2Ftc2luMzY5IiwiYSI6ImNrbXh5NWhpcTAwejMydXBuNWx1bnY1a2QifQ.B7q4uR5veDmd3Bex4jJB0w";
-const cuisineTypes = ["french", "mexican", "chinese"];
+const cuisineTypes = ["french", "mexican", "vietnamese"];
 
 const distOptions = [10, 20, 30, 50, 100000];
 
