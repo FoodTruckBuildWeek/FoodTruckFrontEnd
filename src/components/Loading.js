@@ -2,8 +2,15 @@ import React from "react";
 
 const Loading = () => {
   return (
-    <>
-      <h1>Loading...</h1>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <h2>Loading...</h2>
       <div className="lds-spinner">
         <div></div>
         <div></div>
@@ -18,7 +25,7 @@ const Loading = () => {
         <div></div>
         <div></div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -3,66 +3,37 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { CardContainer } from "./TruckCard";
 import { Card } from "react-bootstrap";
-
-const menuitems = [
-  {
-    menuitem_id: 1,
-    item_name: "tacos",
-    item_description: "3 soft shell tacos",
-    item_img:
-      "https://www.tacobell.com/images/offers-free-dlt-w-signup-001.jpg",
-    item_price: "8.99",
-  },
-  {
-    menuitem_id: 1,
-    item_name: "tacos",
-    item_description: "3 soft shell tacos",
-    item_img:
-      "https://www.tacobell.com/images/offers-free-dlt-w-signup-001.jpg",
-    item_price: "8.99",
-  },
-  {
-    menuitem_id: 1,
-    item_name: "tacos",
-    item_description: "3 soft shell tacos",
-    item_img:
-      "https://www.tacobell.com/images/offers-free-dlt-w-signup-001.jpg",
-    item_price: "8.99",
-  },
-];
+import Loading from "./Loading";
 
 const Menu = (props) => {
   const { truck_id, capitalize } = props;
-  const [menu, setMenu] = useState(menuitems);
+  const [menuItem, setMenuItem] = useState(null);
 
-  /*useEffect(() => {
+  useEffect(() => {
     axios
-      .get(`https://foodtruckbuildweek.herokuapp.com/api/menu`)
+      .get(`https://foodtruckbuildweek.herokuapp.com/api/menu/${truck_id}`)
       .then((res) => {
         console.log(res);
+        setMenuItem(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);*/
+  }, []);
 
   return (
     <CardContainer>
-      {menu ? (
-        menu.map((item) => {
-          return (
-            <Card style={{ width: "9rem", margin: "1em" }}>
-              <Card.Img variant="top" src={item.item_img} />
-              <Card.Body>
-                <Card.Title>{capitalize(item.item_name)}</Card.Title>
-                <Card.Text>{item.item_description}</Card.Text>
-                <Card.Text>Item Price: {`$${item.item_price}`}</Card.Text>
-              </Card.Body>
-            </Card>
-          );
-        })
+      {menuItem ? (
+        <Card style={{ width: "9rem", margin: "1em" }}>
+          <Card.Img variant="top" src={menuItem.item_img} />
+          <Card.Body>
+            <Card.Title>{capitalize(menuItem.item_name)}</Card.Title>
+            <Card.Text>{menuItem.item_description}</Card.Text>
+            <Card.Text>Item Price: {`$${menuItem.item_price}`}</Card.Text>
+          </Card.Body>
+        </Card>
       ) : (
-        <div>Loading</div>
+        <Loading />
       )}
     </CardContainer>
   );
