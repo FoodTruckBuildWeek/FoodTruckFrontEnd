@@ -130,7 +130,10 @@ const Diner = (props) => {
           }}
         >
           <Marker latitude={location.latitude} longitude={location.longitude}>
-            <img src={marker} alt="you" />
+            <>
+              <h4>You Are Here</h4>
+              <img src={marker} alt="you" />
+            </>
           </Marker>
           {trucks.map((truck) => {
             return (
