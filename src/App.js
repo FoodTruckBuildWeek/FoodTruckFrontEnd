@@ -4,8 +4,14 @@ import { connect } from "react-redux";
 import NavBar from "./components/NavBar";
 import HomePage from "./components/HomePage";
 import PrivateRoute from "./components/PrivateRoute";
+
+import SuccessPage from "./components/SuccessPage";
+import { Operator } from "./components/Operator";
+
+
 import SignUpForm from "./components/signUpForm";
 import SignInForm from "./components/SignInForm";
+
 import NewTruckForm from "./components/NewTruckForm";
 import EditTruckForm from "./components/EditTruckForm";
 import TruckMenu from "./components/TruckMenu";
@@ -38,6 +44,7 @@ function App(props) {
         </Route>
         <Route path="/TruckMenu" component={TruckMenu}></Route>
         <Route path="/confirm" component={ConfirmPage}></Route>
+        <Route path="/success" component={SuccessPage}></Route>
       </Switch>
     </div>
   );

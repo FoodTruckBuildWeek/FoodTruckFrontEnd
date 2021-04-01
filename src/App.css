@@ -65,6 +65,19 @@
   justify-content: center;
   align-items: center;
 }
+.menuCard {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.menuImage {
+  width: 25vw;
+}
+.cardContainer {
+  display: flex;
+  justify-content: center;
+}
 
 .ftf {
   background-color: cornsilk;
