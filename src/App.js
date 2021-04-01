@@ -6,7 +6,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import signUpForm from "./components/signUpForm";
 import PrivateRoute from "./components/PrivateRoute";
-
+import SuccessPage from "./components/SuccessPage";
 import { Operator } from "./components/Operator";
 
 import NewTruckForm from "./components/NewTruckForm";
@@ -45,6 +45,7 @@ function App(props) {
         </Route>
         <Route path="/TruckMenu" component={TruckMenu}></Route>
         <Route path="/confirm" component={ConfirmPage}></Route>
+        <Route path="/success" component={SuccessPage}></Route>
       </Switch>
     </div>
   );
