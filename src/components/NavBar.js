@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Navbar, NavDropdown, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Navbar, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { GiFoodTruck } from "react-icons/gi";
 import { setToken } from "../actions";
 import { connect } from "react-redux";
+
 const NavBar = (props) => {
-  const { token, setToken, history, role } = props;
+  const { token, setToken, role } = props;
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -25,6 +25,11 @@ const NavBar = (props) => {
           <LinkContainer to="/">
             <Nav.Link>Home</Nav.Link>
           </LinkContainer>
+          {token && (
+            <LinkContainer to="/protected">
+              <Nav.Link>{role === "client" ? "Diner" : "Operator"}</Nav.Link>
+            </LinkContainer>
+          )}
           {!token && (
             <>
               <LinkContainer to="/SignUpNewUser">

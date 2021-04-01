@@ -151,7 +151,6 @@ const Diner = (props) => {
 
         <Form className="form" onSubmit={handleSearch}>
           <h2>Trucks Nearby</h2>
-          <div>Location: {`${location.latitude} ${location.longitude}`}</div>
           <Label>Cuisine Type: </Label>
           <select
             name="cuisine_type"
@@ -178,11 +177,7 @@ const Diner = (props) => {
           </select>
           <br />
 
-          <Button
-            variant="success"
-            type="submit"
-            style={{ marginBottom: "1em" }}
-          >
+          <Button variant="success" type="submit" style={{ margin: "1em 0" }}>
             Search
           </Button>
         </Form>
