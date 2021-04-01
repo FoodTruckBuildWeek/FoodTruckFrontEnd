@@ -4,6 +4,7 @@ const Loading = () => {
   return (
     <div
       style={{
+        margin: "1em 0",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
