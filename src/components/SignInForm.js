@@ -4,6 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { propTypes } from "react-bootstrap/esm/Image";
 import { setRole, setToken } from "../actions";
+import styled from "styled-components";
 
 const formSchema = {
   username: "",
@@ -46,7 +47,7 @@ const SignInForm = (props) => {
   };
 
   return (
-    <>
+    <FormContainer>
       <h1>User Sign In Form</h1>
       <Form className="form" onSubmit={login}>
         <Form.Group controlId="formBasicUsername">
@@ -69,15 +70,20 @@ const SignInForm = (props) => {
             value={credentials.password}
           />
         </Form.Group>
-        <select name="role" onChange={handleChange}>
+        <select
+          style={{ padding: "0.4em", marginBottom: "1em" }}
+          name="role"
+          onChange={handleChange}
+        >
           <option value="client">Client</option>
           <option value="operator">Operator</option>
         </select>
+        <br />
         <Button variant="primary" type="submit">
           Submit
         </Button>
       </Form>
-    </>
+    </FormContainer>
   );
 };
 
@@ -86,3 +92,10 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { setToken, setRole })(SignInForm);
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
