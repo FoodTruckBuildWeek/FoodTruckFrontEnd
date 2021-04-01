@@ -21,20 +21,9 @@ const defaultCriteria = {
 };
 
 const Diner = (props) => {
-  const trucksSpam = [
-    {
-      truck_id: 1,
-      truck_img:
-        "https://www.ddir.com/wp-content/uploads/2021/01/DDIR_foodtruck_16x9_LG-e1611626228384-1536x856.png",
-      cuisine_type: "french",
-      departure_time: "7:00pm",
-      latitude: "44.77777",
-      longitude: "99.00333",
-    },
-  ];
-  const [favTrucks, setFavTrucks] = useState(trucksSpam);
+  const [favTrucks, setFavTrucks] = useState([]);
   const [trucks, setTrucks] = useState([]);
-  const [trucksNearby, setTrucksNearby] = useState(trucksSpam);
+  const [trucksNearby, setTrucksNearby] = useState([]);
 
   const [searchCriteria, setSearchCriteria] = useState(defaultCriteria);
   const [viewport, setViewport] = useState({
@@ -77,9 +66,13 @@ const Diner = (props) => {
   };
 
   const mapTrucksToCards = (trucks) => {
-    return trucks.map((truck) => {
-      return <TruckCard truck={truck} />;
-    });
+    return (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        {trucks.map((truck) => {
+          return <TruckCard truck={truck} />;
+        })}
+      </div>
+    );
   };
 
   const handleSelect = (e) => {
@@ -147,43 +140,49 @@ const Diner = (props) => {
           })}
         </ReactMapGl>
       </div>
-      <h2>Favorite Trucks</h2>
-      <div className="fav-trucks">{mapTrucksToCards(trucks)}</div>
+      <div style={{ padding: "5em" }}>
+        <h2>Favorite Trucks</h2>
+        <div className="fav-trucks">{mapTrucksToCards(trucks)}</div>
 
-      <Form className="form" onSubmit={handleSearch}>
-        <h2>Trucks Nearby</h2>
-        <div>Location: {`${location.latitude} ${location.longitude}`}</div>
-        <Label>Cuisine Type: </Label>
-        <select
-          name="cuisine_type"
-          onChange={handleSelect}
-          value={searchCriteria.cuisine_type}
-        >
-          {cuisineTypes.map((type) => {
-            return <option value={type}>{capitalize(type)}</option>;
-          })}
-        </select>
-        <Label>Distance (km): </Label>
-        <select
-          name="radSize"
-          onChange={handleSelect}
-          value={searchCriteria.radSize}
-        >
-          {distOptions.map((radSize) => {
-            return (
-              <option name="radSize" value={radSize}>
-                {radSize}
-              </option>
-            );
-          })}
-        </select>
-        <br />
+        <Form className="form" onSubmit={handleSearch}>
+          <h2>Trucks Nearby</h2>
+          <div>Location: {`${location.latitude} ${location.longitude}`}</div>
+          <Label>Cuisine Type: </Label>
+          <select
+            name="cuisine_type"
+            onChange={handleSelect}
+            value={searchCriteria.cuisine_type}
+          >
+            {cuisineTypes.map((type) => {
+              return <option value={type}>{capitalize(type)}</option>;
+            })}
+          </select>
+          <Label>Distance (km): </Label>
+          <select
+            name="radSize"
+            onChange={handleSelect}
+            value={searchCriteria.radSize}
+          >
+            {distOptions.map((radSize) => {
+              return (
+                <option name="radSize" value={radSize}>
+                  {radSize}
+                </option>
+              );
+            })}
+          </select>
+          <br />
 
-        <Button variant="success" type="submit">
-          Search
-        </Button>
-      </Form>
-      <div className="nearby-trucks">{mapTrucksToCards(trucksNearby)}</div>
+          <Button
+            variant="success"
+            type="submit"
+            style={{ marginBottom: "1em" }}
+          >
+            Search
+          </Button>
+        </Form>
+        <div className="nearby-trucks">{mapTrucksToCards(trucksNearby)}</div>
+      </div>
     </>
   );
 };

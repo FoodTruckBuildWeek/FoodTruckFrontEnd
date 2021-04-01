@@ -24,12 +24,16 @@ const Menu = (props) => {
   return (
     <CardContainer>
       {menuItem ? (
-        <Card style={{ width: "9rem", margin: "1em" }}>
+        <Card style={{ width: "8rem", margin: "1em" }}>
           <Card.Img variant="top" src={menuItem.item_img} />
           <Card.Body>
             <Card.Title>{capitalize(menuItem.item_name)}</Card.Title>
-            <Card.Text>{menuItem.item_description}</Card.Text>
-            <Card.Text>Item Price: {`$${menuItem.item_price}`}</Card.Text>
+            <div style={{ textAlign: "left", marginBottom: "1em" }}>
+              {menuItem.item_description}
+            </div>
+            <div style={{ textAlign: "left" }}>
+              Item Price: {`$${menuItem.item_price}`}
+            </div>
           </Card.Body>
         </Card>
       ) : (
