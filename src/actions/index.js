@@ -14,7 +14,6 @@ export const setRole = (role) => {
   return { type: SET_ROLE, payload: role };
 };
 
-export const setCurrentTruckId = (truck) => {
-  console.log(truck);
-  return { type: SET_CURRENT_TRUCK_ID, payload: truck };
+export const setCurrentTruckId = (id) => {
+  return { type: SET_CURRENT_TRUCK_ID, payload: id };
 };
