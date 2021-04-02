@@ -9,7 +9,7 @@ import Menu from "./Menu";
 const TruckCard = (props) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { capitalize, truck, location, getDistInKm } = props;
+  const { truck, location, getDistInKm } = props;
   const truckLocation = {
     latitude: truck.latitude,
     longitude: truck.longitude,
