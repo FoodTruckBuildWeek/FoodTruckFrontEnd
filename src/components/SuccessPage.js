@@ -1,7 +1,7 @@
 import React from "react";
 
 const SuccessPage = () => {
-  return <div>Succesfully Created</div>;
+  return <div>Succesfully Edited</div>;
 };
 
 export default SuccessPage;

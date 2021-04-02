@@ -7,7 +7,6 @@ import { setLocation } from "../actions";
 import TruckCard from "../components/TruckCard";
 import { GiFoodTruck } from "react-icons/gi";
 import ReactMapGl, { Marker } from "react-map-gl";
-import Loading from "./Loading";
 
 import marker from "../images/marker.png";
 
@@ -23,12 +22,16 @@ const defaultCriteria = {
 };
 
 const Diner = (props) => {
+
   const [favTrucks, setFavTrucks] = useState([]);
+
   const [trucks, setTrucks] = useState([]);
   const [trucksNearby, setTrucksNearby] = useState([]);
 
   const [searchCriteria, setSearchCriteria] = useState(defaultCriteria);
   const [viewport, setViewport] = useState({
+    latitude: Number(props.location.latitude),
+    longitude: Number(props.location.longitude),
     zoom: 10,
     width: "100%",
     height: "500px",
@@ -53,11 +56,6 @@ const Diner = (props) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
           setLocation({ latitude: latitude, longitude: longitude });
-          setViewport({
-            ...viewport,
-            latitude: latitude,
-            longitude: longitude,
-          });
         },
         errorHandler,
         { timeout: 60000 }
@@ -115,11 +113,14 @@ const Diner = (props) => {
       });
   }, []);
 
-  return !(trucks.length > 0) ? (
-    <Loading />
-  ) : (
+  useEffect(() => {
+    console.log(props.location.latitude, props.location.longitude);
+    console.log(trucks);
+  }, [trucks, props.location]);
+  return (
     <>
       <h1>Diner</h1>
+
       <div>
         <ReactMapGl
           {...viewport}
@@ -186,11 +187,13 @@ const Diner = (props) => {
         </Form>
         <div className="nearby-trucks">{mapTrucksToCards(trucksNearby)}</div>
       </div>
+
     </>
   );
 };
 
 const mapStateToProps = (state) => {
+  console.log("state To Props: ", state);
   return {
     capitalize: state.capitalize,
     location: state.location,

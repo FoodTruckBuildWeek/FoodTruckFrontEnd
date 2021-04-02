@@ -13,7 +13,7 @@ const initialState = {
     if (typeof s !== "string") return "";
     return s.charAt(0).toUpperCase() + s.slice(1);
   },
-  location: {},
+  location: { latitude: 0, longitude: 0 },
   current_truck_id: 0,
   getDistInKm: (loc1, loc2) => {
     const deg2rad = (deg) => {
