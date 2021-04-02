@@ -18,7 +18,7 @@ const TruckMenu = (props) => {
       .catch((err) => {
         console.log(err.response);
       });
-  }, []);
+  }, [props.current_truck_id]);
   console.log(props.current_truck_id);
   return (
     <div className="cardContainer">
