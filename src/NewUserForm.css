@@ -1,48 +1,47 @@
-
 .title {
-    background: #2ee1f5;
-    border: 2px solid rgba(33, 68, 72, 0.59);
-    width: 400px;
-    display: inline-block;
-    align-items: center;
+  background: #2ee1f5;
+  border: 2px solid rgba(33, 68, 72, 0.59);
+  width: 400px;
+  display: inline-block;
+  align-items: center;
 }
 
 .form {
-    margin-left: 600px;
-    margin-right: 600px;
-    border: 2px solid rgba(33, 68, 72, 0.59);
+  margin-left: 600px;
+  margin-right: 600px;
+  border: 2px solid rgba(33, 68, 72, 0.59);
 }
 
 h1 {
-    display: block;
-    font-size: 2em;
-    margin-block-start: 0.67em;
-    margin-block-end: 0.67em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
+  display: block;
+  font-size: 2em;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
 }
 
 .select {
-    align-items: center;
+  align-items: center;
 }
 
 .myButton {
-    display: inline-block;
-    align-items: center;
-    height: 100px;
-    width: 300px;
-    background: #2ee1f5;
-    border: 2px solid rgba(33, 68, 72, 0.59);
-    font-size: large;
+  display: inline-block;
+  align-items: center;
+  height: 100px;
+  width: 300px;
+  background: #2ee1f5;
+  border: 2px solid rgba(33, 68, 72, 0.59);
+  font-size: large;
 }
 
 label {
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    margin-left: 265px;
-    margin-right: 265px;
-    align-items: center;
-    padding: 10px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 265px;
+  margin-right: 265px;
+  align-items: center;
+  padding: 10px;
 }

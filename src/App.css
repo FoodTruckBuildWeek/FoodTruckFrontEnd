@@ -177,3 +177,124 @@ p {
     opacity: 0;
   }
 }
+
+.form {
+  margin: 0 35%;
+  margin-top: 4%;
+}
+.formContainer {
+  background: #2176ff;
+}
+.NavBar {
+  background: #fdca40;
+}
+.red-error-text {
+  color: red;
+}
+.mapContainer {
+  width: 100%;
+}
+.marker-button {
+  height: 100px;
+  width: 100px;
+}
+
+.marker {
+  font-size: 50px;
+}
+
+.header {
+  height: 80vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  text-align: center;
+}
+
+.FoodTruck {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ftf {
+  background-color: cornsilk;
+}
+
+h1 {
+  padding: 10px;
+  font-family: "Poppins", sans-serif;
+}
+
+.truck {
+  margin: 40px;
+  border: turquoise solid 2px;
+}
+
+.text {
+  font-size: 18px;
+  margin: 40px;
+  padding-bottom: 15px;
+}
+
+.header_text {
+  margin: 20%;
+  margin-top: 2%;
+  margin-bottom: -5%;
+  font-size: 18px;
+}
+
+.container {
+  display: flex;
+  text-align: center;
+  border: dotted turquoise 2px;
+  padding: 10px;
+  margin: 10%;
+  margin-bottom: -7%;
+  background-color: cornsilk;
+}
+
+.container p {
+  text-align: justify;
+  border: dotted blue 2px;
+  padding: 15px;
+}
+
+.container div {
+  width: 95%;
+}
+
+.container .text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10% 0;
+}
+
+.bg {
+  background-size: 70%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.sandwiches {
+  background-image: url("./images/sandwich.jpg");
+}
+
+.pizza {
+  background-image: url("./images/pizza.jpg");
+}
+.tacos {
+  background-image: url("./images/tacos.jpg");
+}
+.donuts {
+  background-image: url("./images/donuts.jpg");
+}
+
+.trucks {
+  background-image: url("./images/diners.jpg");
+}

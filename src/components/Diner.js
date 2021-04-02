@@ -8,9 +8,11 @@ import TruckCard from "../components/TruckCard";
 import { GiFoodTruck } from "react-icons/gi";
 import ReactMapGl, { Marker } from "react-map-gl";
 
+import marker from "../images/marker.png";
+
 const API_KEY =
   "pk.eyJ1Ijoic2Ftc2luMzY5IiwiYSI6ImNrbXh5NWhpcTAwejMydXBuNWx1bnY1a2QifQ.B7q4uR5veDmd3Bex4jJB0w";
-const cuisineTypes = ["french", "mexican", "chinese"];
+const cuisineTypes = ["french", "mexican", "vietnamese"];
 
 const distOptions = [10, 20, 30, 50, 100000];
 
@@ -20,20 +22,11 @@ const defaultCriteria = {
 };
 
 const Diner = (props) => {
-  const trucksSpam = [
-    {
-      truck_id: 1,
-      truck_img:
-        "https://www.ddir.com/wp-content/uploads/2021/01/DDIR_foodtruck_16x9_LG-e1611626228384-1536x856.png",
-      cuisine_type: "french",
-      departure_time: "7:00pm",
-      latitude: 44.77777,
-      longitude: 99.00333,
-    },
-  ];
-  const [favTrucks, setFavTrucks] = useState(trucksSpam);
+
+  const [favTrucks, setFavTrucks] = useState([]);
+
   const [trucks, setTrucks] = useState([]);
-  const [trucksNearby, setTrucksNearby] = useState(trucksSpam);
+  const [trucksNearby, setTrucksNearby] = useState([]);
 
   const [searchCriteria, setSearchCriteria] = useState(defaultCriteria);
   const [viewport, setViewport] = useState({
@@ -73,9 +66,13 @@ const Diner = (props) => {
   };
 
   const mapTrucksToCards = (trucks) => {
-    return trucks.map((truck) => {
-      return <TruckCard truck={truck} />;
-    });
+    return (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        {trucks.map((truck) => {
+          return <TruckCard truck={truck} />;
+        })}
+      </div>
+    );
   };
 
   const handleSelect = (e) => {
@@ -123,71 +120,74 @@ const Diner = (props) => {
   return (
     <>
       <h1>Diner</h1>
-      {trucks && props.location.latitude && props.location.longitude && (
-        <div>
-          <ReactMapGl
-            {...viewport}
-            mapboxApiAccessToken={API_KEY}
-            mapStyle="mapbox://styles/samsin369/ckmy2nqmm1ecq17qh97ylapvf"
-            onViewportChange={(viewport) => {
-              setViewport(viewport);
-            }}
-          >
-            {trucks.map((truck) => {
-              if (truck.latitude && truck.longitude) {
-                return (
-                  <Marker
-                    key={truck.id}
-                    latitude={Number(truck.latitude)}
-                    longitude={Number(truck.longitude)}
-                  >
-                    <GiFoodTruck className="marker"></GiFoodTruck>
-                  </Marker>
-                );
-              } else {
-                return null;
-              }
-            })}
-          </ReactMapGl>
-        </div>
-      )}
-      <h2>Favorite Trucks</h2>
-      <div className="fav-trucks">{mapTrucksToCards(trucks)}</div>
 
-      <Form className="form" onSubmit={handleSearch}>
-        <h2>Trucks Nearby</h2>
-        <div>Location: {`${location.latitude} ${location.longitude}`}</div>
-        <Label>Cuisine Type: </Label>
-        <select
-          name="cuisine_type"
-          onChange={handleSelect}
-          value={searchCriteria.cuisine_type}
+      <div>
+        <ReactMapGl
+          {...viewport}
+          mapboxApiAccessToken={API_KEY}
+          mapStyle="mapbox://styles/samsin369/ckmy2nqmm1ecq17qh97ylapvf"
+          onViewportChange={(viewport) => {
+            setViewport(viewport);
+          }}
         >
-          {cuisineTypes.map((type) => {
-            return <option value={type}>{capitalize(type)}</option>;
-          })}
-        </select>
-        <Label>Distance (km): </Label>
-        <select
-          name="radSize"
-          onChange={handleSelect}
-          value={searchCriteria.radSize}
-        >
-          {distOptions.map((radSize) => {
+          <Marker latitude={location.latitude} longitude={location.longitude}>
+            <>
+              <h4>You Are Here</h4>
+              <img src={marker} alt="you" />
+            </>
+          </Marker>
+          {trucks.map((truck) => {
             return (
-              <option name="radSize" value={radSize}>
-                {radSize}
-              </option>
+              <Marker
+                key={truck.id}
+                latitude={Number(truck.latitude)}
+                longitude={Number(truck.longitude)}
+              >
+                <GiFoodTruck className="marker" />
+              </Marker>
             );
           })}
-        </select>
-        <br />
+        </ReactMapGl>
+      </div>
+      <div style={{ padding: "5em" }}>
+        <h2>Favorite Trucks</h2>
+        <div className="fav-trucks">{mapTrucksToCards(trucks)}</div>
 
-        <Button variant="success" type="submit">
-          Search
-        </Button>
-      </Form>
-      <div className="nearby-trucks">{mapTrucksToCards(trucksNearby)}</div>
+        <Form className="form" onSubmit={handleSearch}>
+          <h2>Trucks Nearby</h2>
+          <Label>Cuisine Type: </Label>
+          <select
+            name="cuisine_type"
+            onChange={handleSelect}
+            value={searchCriteria.cuisine_type}
+          >
+            {cuisineTypes.map((type) => {
+              return <option value={type}>{capitalize(type)}</option>;
+            })}
+          </select>
+          <Label>Distance (km): </Label>
+          <select
+            name="radSize"
+            onChange={handleSelect}
+            value={searchCriteria.radSize}
+          >
+            {distOptions.map((radSize) => {
+              return (
+                <option name="radSize" value={radSize}>
+                  {radSize}
+                </option>
+              );
+            })}
+          </select>
+          <br />
+
+          <Button variant="success" type="submit" style={{ margin: "1em 0" }}>
+            Search
+          </Button>
+        </Form>
+        <div className="nearby-trucks">{mapTrucksToCards(trucksNearby)}</div>
+      </div>
+
     </>
   );
 };

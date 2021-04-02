@@ -17,18 +17,27 @@ const TruckCard = (props) => {
 
   return (
     <CardContainer>
-      <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={truck.truck_img} />
+      <Card style={{ width: "16rem" }}>
+        <div
+          style={{
+            height: "150px",
+            overflow: "hidden",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Card.Img variant="top" src={truck.truck_img} />
+        </div>
         <Card.Body>
-          <Card.Text>
-            Distance: {`${getDistInKm(location, truckLocation)} km`}
-          </Card.Text>
-          <Card.Text>Cuisine Type: {truck.cuisine_type}</Card.Text>
+          <div>Distance: {`${getDistInKm(location, truckLocation)} km`}</div>
+          <div>Cuisine Type: {truck.cuisine_type}</div>
           {menuOpen && <Menu truck_id={truck.truck_id} />}
           <Button
             onClick={(e) => {
               setMenuOpen(!menuOpen);
             }}
+            style={{ margin: "1em 0" }}
             variant="primary"
           >
             {!menuOpen ? "See Menu" : "Close Menu"}
@@ -50,6 +59,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {})(TruckCard);
 
 export const CardContainer = styled.div`
+  margin: 0 1em;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
