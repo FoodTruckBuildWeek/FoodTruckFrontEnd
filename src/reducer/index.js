@@ -6,8 +6,8 @@ import {
 } from "../actions";
 
 const initialState = {
-  role: "",
-  token: null,
+  role: localStorage.getItem("role"),
+  token: localStorage.getItem("token"),
   title: "Welcome to Redux land",
   capitalize: (s) => {
     if (typeof s !== "string") return "";

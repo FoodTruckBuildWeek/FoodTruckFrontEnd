@@ -6,8 +6,6 @@ import HomePage from "./components/HomePage";
 import PrivateRoute from "./components/PrivateRoute";
 
 import SuccessPage from "./components/SuccessPage";
-import { Operator } from "./components/Operator";
-
 
 import SignUpForm from "./components/signUpForm";
 import SignInForm from "./components/SignInForm";
