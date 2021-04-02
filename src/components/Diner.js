@@ -22,9 +22,6 @@ const defaultCriteria = {
 };
 
 const Diner = (props) => {
-
-  const [favTrucks, setFavTrucks] = useState([]);
-
   const [trucks, setTrucks] = useState([]);
   const [trucksNearby, setTrucksNearby] = useState([]);
 
@@ -38,32 +35,6 @@ const Diner = (props) => {
   });
   console.log(trucks);
   const { getDistInKm, location, setLocation, capitalize } = props;
-
-  var mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
-
-  const getLocation = () => {
-    const errorHandler = (err) => {
-      if (err.code === 1) {
-        alert("Error: Access is denied!");
-      } else if (err.code === 2) {
-        alert("Error: Position is unavailable!");
-      }
-    };
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          setLocation({ latitude: latitude, longitude: longitude });
-        },
-        errorHandler,
-        { timeout: 60000 }
-      );
-    } else {
-      alert("Sorry, browser does not support geolocation!");
-    }
-  };
 
   const mapTrucksToCards = (trucks) => {
     return (
@@ -100,7 +71,30 @@ const Diner = (props) => {
   };
 
   useEffect(() => {
-    getLocation();
+    const errorHandler = (err) => {
+      if (err.code === 1) {
+        alert("Error: Access is denied!");
+      } else if (err.code === 2) {
+        alert("Error: Position is unavailable!");
+      }
+    };
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          setLocation({ latitude: latitude, longitude: longitude });
+        },
+        errorHandler,
+        { timeout: 60000 }
+      );
+    } else {
+      alert("Sorry, browser does not support geolocation!");
+    }
+  });
+
+  useEffect(() => {
     //set available trucks and favorite trucks from server data
     axios
       .get("https://foodtruckbuildweek.herokuapp.com/api/trucks")
@@ -187,7 +181,6 @@ const Diner = (props) => {
         </Form>
         <div className="nearby-trucks">{mapTrucksToCards(trucksNearby)}</div>
       </div>
-
     </>
   );
 };

@@ -1,4 +1,3 @@
-import { validateYupSchema } from "formik";
 import React, { useState } from "react";
 import "./NewTruckForm.css";
 
@@ -23,14 +22,6 @@ const NewTruckForm = (props) => {
       [e.target.name]: e.target.value,
     });
     console.log(formValues);
-  };
-
-  const onCheckBoxChange = (event) => {
-    const { name, checked } = event.target;
-    setFormValues({
-      ...formValues,
-      [name]: checked,
-    });
   };
 
   const onSubmit = (evt) => {
