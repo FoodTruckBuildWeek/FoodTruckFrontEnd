@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { LinkContainer } from "react-router-bootstrap";
 import OperatorTrucks from "./OperatorTrucks";
 import axios from "axios";
-import { connect } from "react-redux";
 export const Operator = () => {
   const formSchema = {
     imageOfTruck: "",

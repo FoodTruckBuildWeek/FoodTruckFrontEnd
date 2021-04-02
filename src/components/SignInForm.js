@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
-import { propTypes } from "react-bootstrap/esm/Image";
 import { setRole, setToken } from "../actions";
 import styled from "styled-components";
 
@@ -15,7 +14,7 @@ const formSchema = {
 const SignInForm = (props) => {
   const [credentials, setCredentials] = useState(formSchema);
 
-  const { token, setToken, setRole } = props;
+  const { setToken, setRole } = props;
 
   const handleChange = (e) => {
     const { name, value } = e.target;

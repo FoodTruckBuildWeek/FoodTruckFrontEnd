@@ -19,7 +19,7 @@ const Menu = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [truck_id]);
 
   return (
     <CardContainer>
