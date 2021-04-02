@@ -35,7 +35,6 @@ const SignUpForm = (props) => {
   //     console.log(formValues);
   //   };
   const submitForm = (data) => {
-    delete data.confirmPassword;
     console.log(data);
     axios
       .put(
@@ -82,7 +81,7 @@ const SignUpForm = (props) => {
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Departure Time</Form.Label>
           <Form.Control
-            type="text"
+            type="time"
             placeholder="Enter Departure Time"
             name="departure_time"
             ref={register}

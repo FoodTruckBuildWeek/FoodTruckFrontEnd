@@ -7,7 +7,6 @@ import { setLocation } from "../actions";
 import TruckCard from "../components/TruckCard";
 import { GiFoodTruck } from "react-icons/gi";
 import ReactMapGl, { Marker } from "react-map-gl";
-import Loading from "./Loading";
 
 const API_KEY =
   "pk.eyJ1Ijoic2Ftc2luMzY5IiwiYSI6ImNrbXh5NWhpcTAwejMydXBuNWx1bnY1a2QifQ.B7q4uR5veDmd3Bex4jJB0w";
@@ -28,8 +27,8 @@ const Diner = (props) => {
         "https://www.ddir.com/wp-content/uploads/2021/01/DDIR_foodtruck_16x9_LG-e1611626228384-1536x856.png",
       cuisine_type: "french",
       departure_time: "7:00pm",
-      latitude: "44.77777",
-      longitude: "99.00333",
+      latitude: 44.77777,
+      longitude: 99.00333,
     },
   ];
   const [favTrucks, setFavTrucks] = useState(trucksSpam);
@@ -38,6 +37,8 @@ const Diner = (props) => {
 
   const [searchCriteria, setSearchCriteria] = useState(defaultCriteria);
   const [viewport, setViewport] = useState({
+    latitude: Number(props.location.latitude),
+    longitude: Number(props.location.longitude),
     zoom: 10,
     width: "100%",
     height: "500px",
@@ -62,11 +63,6 @@ const Diner = (props) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
           setLocation({ latitude: latitude, longitude: longitude });
-          setViewport({
-            ...viewport,
-            latitude: latitude,
-            longitude: longitude,
-          });
         },
         errorHandler,
         { timeout: 60000 }
@@ -120,33 +116,41 @@ const Diner = (props) => {
       });
   }, []);
 
-  return !(trucks.length > 0) ? (
-    <Loading />
-  ) : (
+  useEffect(() => {
+    console.log(props.location.latitude, props.location.longitude);
+    console.log(trucks);
+  }, [trucks, props.location]);
+  return (
     <>
       <h1>Diner</h1>
-      <div>
-        <ReactMapGl
-          {...viewport}
-          mapboxApiAccessToken={API_KEY}
-          mapStyle="mapbox://styles/samsin369/ckmy2nqmm1ecq17qh97ylapvf"
-          onViewportChange={(viewport) => {
-            setViewport(viewport);
-          }}
-        >
-          {trucks.map((truck) => {
-            return (
-              <Marker
-                key={truck.id}
-                latitude={Number(truck.latitude)}
-                longitude={Number(truck.longitude)}
-              >
-                <GiFoodTruck className="marker" />
-              </Marker>
-            );
-          })}
-        </ReactMapGl>
-      </div>
+      {trucks && props.location.latitude && props.location.longitude && (
+        <div>
+          <ReactMapGl
+            {...viewport}
+            mapboxApiAccessToken={API_KEY}
+            mapStyle="mapbox://styles/samsin369/ckmy2nqmm1ecq17qh97ylapvf"
+            onViewportChange={(viewport) => {
+              setViewport(viewport);
+            }}
+          >
+            {trucks.map((truck) => {
+              if (truck.latitude && truck.longitude) {
+                return (
+                  <Marker
+                    key={truck.id}
+                    latitude={Number(truck.latitude)}
+                    longitude={Number(truck.longitude)}
+                  >
+                    <GiFoodTruck className="marker"></GiFoodTruck>
+                  </Marker>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </ReactMapGl>
+        </div>
+      )}
       <h2>Favorite Trucks</h2>
       <div className="fav-trucks">{mapTrucksToCards(trucks)}</div>
 
@@ -189,6 +193,7 @@ const Diner = (props) => {
 };
 
 const mapStateToProps = (state) => {
+  console.log("state To Props: ", state);
   return {
     capitalize: state.capitalize,
     location: state.location,
