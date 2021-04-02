@@ -10,6 +10,8 @@ import ReactMapGl, { Marker } from "react-map-gl";
 
 import marker from "../images/marker.png";
 
+require("mapbox-gl/dist/mapbox-gl.js");
+
 const API_KEY =
   "pk.eyJ1Ijoic2Ftc2luMzY5IiwiYSI6ImNrbXh5NWhpcTAwejMydXBuNWx1bnY1a2QifQ.B7q4uR5veDmd3Bex4jJB0w";
 const cuisineTypes = ["french", "mexican", "vietnamese"];
