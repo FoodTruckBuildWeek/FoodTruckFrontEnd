@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Card, Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import axios from "axios";
 
 import Menu from "./Menu";
 
