@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { GiFoodTruck } from "react-icons/gi";
-import { setToken } from "../actions";
+import { setRole, setToken } from "../actions";
 import { connect } from "react-redux";
 
 const NavBar = (props) => {
@@ -10,7 +10,9 @@ const NavBar = (props) => {
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
     setToken(null);
+    setRole(null);
   };
 
   return (
